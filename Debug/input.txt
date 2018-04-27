@@ -1,0 +1,27 @@
+#include <stdio.h>
+block	
+{
+	int__var1_ : integer;
+	int_var2 : integer;
+	real_var1 : real;
+        _real_var1 : real;
+        mark_ : integer;
+        $_Money : salary;
+        MONEY : salary;
+        age : iteger;
+        Weight :: integer;
+        height, width : int;
+        string : ^char;
+        
+}
+begin
+{
+	int_var2 = x10;
+        x = y--z;
+	int_var2 = 20x;	
+	real_var1 = 3.4.7;
+        real_var1 = 3..14;
+        string = "Hello world";
+}
+end	// this is not a comment
+	// but all other symbols are legal
