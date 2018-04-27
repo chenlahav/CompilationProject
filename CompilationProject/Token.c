@@ -158,17 +158,17 @@ Token *next_token()
 	}
 }
 
-//void print_error(expected_token, actual_token, line_number)
-//{
-//	// todo - print to output file
-//	printf("syntax error, expected token: " + expected_token + "actual token: " + actual_token + "line number: " + line_number);
-//}
+void print_error(expected_token, actual_token, line_number, current_lexeme)
+{
+	// TODO: print to output file
+	printf("Expected: token '%s' at line %d,\nActual token : %s, lexeme %s.", expected_token, line_number, actual_token, current_lexeme);
+}
 
 void match(eTOKENS kind)
 {
 	Token *next_t = next_token();
 	if(next_t->kind != kind)
 	{
-		print_error(next_t->kind, kind, next_t->lineNumber);
+		print_error(next_t->kind, kind, next_t->lineNumber, next_t->lexeme);
 	}
 }
