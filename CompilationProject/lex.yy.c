@@ -201,6 +201,7 @@ int read();
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include "Token.h"
+	#include "Parser.h"
 	void insertAndPrintToken(eTOKENS kind, char* lexeme, int line_number);
 	int line_number = 1;
 	char* tokens[]= 
@@ -302,9 +303,9 @@ int read();
 
 
 /* % here is the declaration from section1 %header{  */ 
-#line 58 "lexicalAnalyzer.lex"
-#line 58 "lexicalAnalyzer.lex"
-#line 115 "lexicalAnalyzer.lex"
+#line 59 "lexicalAnalyzer.lex"
+#line 59 "lexicalAnalyzer.lex"
+#line 116 "lexicalAnalyzer.lex"
 #line 52 "C:\\Users\\CHEN\\Desktop\\flex\\flexskel.h"
 
 #ifdef YY_USE_CLASS
@@ -975,11 +976,11 @@ static YY_CHAR *yy_last_accepting_cpos;
 #if YY_lex_DEBUG != 0
 static const short int yy_rule_linenum[46] =
     {   0,
-       59,   60,   61,   62,   63,   65,   66,   68,   69,   70,
-       71,   72,   73,   75,   77,   79,   81,   83,   84,   85,
-       86,   87,   88,   89,   90,   91,   92,   93,   94,   95,
-       96,   97,   98,   99,  100,  102,  104,  105,  106,  107,
-      108,  109,  111,  112,  113
+       60,   61,   62,   63,   64,   66,   67,   69,   70,   71,
+       72,   73,   74,   76,   78,   80,   82,   84,   85,   86,
+       87,   88,   89,   90,   91,   92,   93,   94,   95,   96,
+       97,   98,   99,  100,  101,  103,  105,  106,  107,  108,
+      109,  110,  112,  113,  114
     } ;
 
 #endif
@@ -1144,187 +1145,187 @@ do_action:      /* this label is used only to access EOF actions */
 	    goto yy_find_action;
 
 case 1:
-#line 59 "lexicalAnalyzer.lex"
+#line 60 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_ADDITION, yytext, line_number);return;}
 	YY_BREAK
 case 2:
-#line 60 "lexicalAnalyzer.lex"
+#line 61 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_SUBTRACTION, yytext, line_number); return;}
 	YY_BREAK
 case 3:
-#line 61 "lexicalAnalyzer.lex"
+#line 62 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_MULTIPLICATION, yytext, line_number); return;}
 	YY_BREAK
 case 4:
-#line 62 "lexicalAnalyzer.lex"
+#line 63 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_DIVISION, yytext, line_number); return;}
 	YY_BREAK
 case 5:
-#line 63 "lexicalAnalyzer.lex"
+#line 64 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_POWER, yytext, line_number); return;}
 	YY_BREAK
 case 6:
-#line 65 "lexicalAnalyzer.lex"
+#line 66 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_INCREMENT, yytext, line_number); return;}
 	YY_BREAK
 case 7:
-#line 66 "lexicalAnalyzer.lex"
+#line 67 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_ADDRESS, yytext, line_number); return;}
 	YY_BREAK
 case 8:
-#line 68 "lexicalAnalyzer.lex"
+#line 69 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_EQUAL, yytext, line_number); return;}
 	YY_BREAK
 case 9:
-#line 69 "lexicalAnalyzer.lex"
+#line 70 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_NOT_EQUAL, yytext, line_number); return;}
 	YY_BREAK
 case 10:
-#line 70 "lexicalAnalyzer.lex"
+#line 71 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_LESS, yytext, line_number); return;}
 	YY_BREAK
 case 11:
-#line 71 "lexicalAnalyzer.lex"
+#line 72 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_GREAT, yytext, line_number); return;}
 	YY_BREAK
 case 12:
-#line 72 "lexicalAnalyzer.lex"
+#line 73 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_LESS_EQUAL, yytext, line_number); return;}
 	YY_BREAK
 case 13:
-#line 73 "lexicalAnalyzer.lex"
+#line 74 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_GREATER_EQUAL, yytext, line_number); return;}
 	YY_BREAK
 case 14:
-#line 75 "lexicalAnalyzer.lex"
+#line 76 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_ASSIGNMENT, yytext, line_number); return;}
 	YY_BREAK
 case 15:
-#line 77 "lexicalAnalyzer.lex"
+#line 78 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_POINTER, yytext, line_number); return;}
 	YY_BREAK
 case 16:
-#line 79 "lexicalAnalyzer.lex"
+#line 80 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_INT_NUM, yytext, line_number); return;}
 	YY_BREAK
 case 17:
-#line 81 "lexicalAnalyzer.lex"
+#line 82 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_REAL_NUM, yytext, line_number); return;}
 	YY_BREAK
 case 18:
-#line 83 "lexicalAnalyzer.lex"
+#line 84 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_BLOCK, yytext, line_number); return;}
 	YY_BREAK
 case 19:
-#line 84 "lexicalAnalyzer.lex"
+#line 85 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_BEGIN, yytext, line_number); return;}
 	YY_BREAK
 case 20:
-#line 85 "lexicalAnalyzer.lex"
+#line 86 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_END, yytext, line_number); return;}
 	YY_BREAK
 case 21:
-#line 86 "lexicalAnalyzer.lex"
+#line 87 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_TYPE, yytext, line_number); return;}
 	YY_BREAK
 case 22:
-#line 87 "lexicalAnalyzer.lex"
+#line 88 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_IS, yytext, line_number); return;}
 	YY_BREAK
 case 23:
-#line 88 "lexicalAnalyzer.lex"
+#line 89 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_INTEGER, yytext, line_number); return;}
 	YY_BREAK
 case 24:
-#line 89 "lexicalAnalyzer.lex"
+#line 90 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_REAL, yytext, line_number); return;}
 	YY_BREAK
 case 25:
-#line 90 "lexicalAnalyzer.lex"
+#line 91 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_ARRAY, yytext, line_number); return;}
 	YY_BREAK
 case 26:
-#line 91 "lexicalAnalyzer.lex"
+#line 92 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_OF, yytext, line_number); return;}
 	YY_BREAK
 case 27:
-#line 92 "lexicalAnalyzer.lex"
+#line 93 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_WHEN, yytext, line_number); return;}
 	YY_BREAK
 case 28:
-#line 93 "lexicalAnalyzer.lex"
+#line 94 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_DO, yytext, line_number); return;}
 	YY_BREAK
 case 29:
-#line 94 "lexicalAnalyzer.lex"
+#line 95 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_DEFAULT, yytext, line_number); return;}
 	YY_BREAK
 case 30:
-#line 95 "lexicalAnalyzer.lex"
+#line 96 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_END_WHEN, yytext, line_number); return;}
 	YY_BREAK
 case 31:
-#line 96 "lexicalAnalyzer.lex"
+#line 97 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_FOR, yytext, line_number); return;}
 	YY_BREAK
 case 32:
-#line 97 "lexicalAnalyzer.lex"
+#line 98 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_END_FOR, yytext, line_number); return;}
 	YY_BREAK
 case 33:
-#line 98 "lexicalAnalyzer.lex"
+#line 99 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_MALLOC, yytext, line_number); return;}
 	YY_BREAK
 case 34:
-#line 99 "lexicalAnalyzer.lex"
+#line 100 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_SIZE_OF, yytext, line_number); return;}
 	YY_BREAK
 case 35:
-#line 100 "lexicalAnalyzer.lex"
+#line 101 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_FREE, yytext, line_number); return;}
 	YY_BREAK
 case 36:
-#line 102 "lexicalAnalyzer.lex"
+#line 103 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_ID, yytext, line_number); return;}
 	YY_BREAK
 case 37:
-#line 104 "lexicalAnalyzer.lex"
+#line 105 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_COLON, yytext, line_number); return;}
 	YY_BREAK
 case 38:
-#line 105 "lexicalAnalyzer.lex"
+#line 106 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_SEMICOLON, yytext, line_number); return;}
 	YY_BREAK
 case 39:
-#line 106 "lexicalAnalyzer.lex"
+#line 107 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_OPEN_PARENTHESES, yytext, line_number); return;}
 	YY_BREAK
 case 40:
-#line 107 "lexicalAnalyzer.lex"
+#line 108 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_CLOSE_PARENTHESES, yytext, line_number); return;}
 	YY_BREAK
 case 41:
-#line 108 "lexicalAnalyzer.lex"
+#line 109 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_OPEN_BRACKETS, yytext, line_number); return;}
 	YY_BREAK
 case 42:
-#line 109 "lexicalAnalyzer.lex"
+#line 110 "lexicalAnalyzer.lex"
 { insertAndPrintToken(TOKEN_CLOSE_BRACKETS, yytext, line_number); return;}
 	YY_BREAK
 case 43:
-#line 111 "lexicalAnalyzer.lex"
+#line 112 "lexicalAnalyzer.lex"
 { line_number++; }
 	YY_BREAK
 case 44:
-#line 112 "lexicalAnalyzer.lex"
+#line 113 "lexicalAnalyzer.lex"
 { }
 	YY_BREAK
 case 45:
-#line 113 "lexicalAnalyzer.lex"
+#line 114 "lexicalAnalyzer.lex"
 { fprintf(yyout, "The character '%s' at line: %d does not begin any legal token in the language.\n", yytext, line_number); return;}
 	YY_BREAK
 case 46:
-#line 115 "lexicalAnalyzer.lex"
+#line 116 "lexicalAnalyzer.lex"
 ECHO;
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
@@ -1921,7 +1922,7 @@ void YY_lex_CLASS::YY_lex_INIT_BUFFER( YY_BUFFER_STATE b, YY_lex_IFILE  *file)
 
     b->yy_eof_status = EOF_NOT_SEEN;
     }
-#line 115 "lexicalAnalyzer.lex"
+#line 116 "lexicalAnalyzer.lex"
 
 
 void main(int argc, char* argv[])
@@ -1929,7 +1930,7 @@ void main(int argc, char* argv[])
 	//test1
 	yyin = fopen("C:\\temp\\test1.txt","r");
 	yyout = fopen("C:\\temp\\test1_308334309_203698808_lex.txt","w");
-	yylex();
+	parse_program();
 	fclose(yyin);
 	fclose(yyout);
 
@@ -1939,7 +1940,7 @@ void main(int argc, char* argv[])
 	//test2
 	yyin = fopen("C:\\temp\\test2.txt","r");
 	yyout = fopen("C:\\temp\\test2_308334309_203698808_lex.txt","w");
-	yylex();
+	parse_program();
 	fclose(yyin);
 	fclose(yyout);
 }

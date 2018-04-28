@@ -1,5 +1,7 @@
-﻿  Parser.c
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(10): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(10): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
+﻿  Token.c
+c:\users\chen\documents\github\compilationproject\compilationproject\token.c(80): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+          c:\program files (x86)\microsoft visual studio 10.0\vc\include\string.h(105) : see declaration of 'strcpy'
+c:\users\chen\documents\github\compilationproject\compilationproject\token.c(132): warning C4013: 'yylex' undefined; assuming extern returning int
+c:\users\chen\documents\github\compilationproject\compilationproject\token.c(171): warning C4028: formal parameter 4 different from declaration
   LINK : C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe not found or not built by the last incremental link; performing full link
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe

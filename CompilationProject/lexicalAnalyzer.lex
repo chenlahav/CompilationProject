@@ -2,6 +2,7 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include "Token.h"
+	#include "Parser.h"
 	void insertAndPrintToken(eTOKENS kind, char* lexeme, int line_number);
 	int line_number = 1;
 	char* tokens[]= 
@@ -119,7 +120,7 @@ void main(int argc, char* argv[])
 	//test1
 	yyin = fopen("C:\\temp\\test1.txt","r");
 	yyout = fopen("C:\\temp\\test1_308334309_203698808_lex.txt","w");
-	yylex();
+	parse_program();
 	fclose(yyin);
 	fclose(yyout);
 
@@ -129,7 +130,7 @@ void main(int argc, char* argv[])
 	//test2
 	yyin = fopen("C:\\temp\\test2.txt","r");
 	yyout = fopen("C:\\temp\\test2_308334309_203698808_lex.txt","w");
-	yylex();
+	parse_program();
 	fclose(yyin);
 	fclose(yyout);
 }

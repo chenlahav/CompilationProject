@@ -57,6 +57,52 @@ typedef struct Token
 	int lineNumber;
 }Token;
 
+//char* token_names[] =
+//{
+//	"addition",
+//	"subtraction",
+//	"multiplication",
+//	"division",
+//	"power",
+//	"increment",
+//	"equal",
+//	"not_equal",
+//	"less",
+//	"great",
+//	"less_equal",
+//	"greater_equal",
+//	"assignment",
+//	"pointer",
+//	"address",
+//	"id",
+//	"int_num",
+//	"real_num",
+//	"block",
+//	"begin",
+//	"end",
+//	"type",
+//	"is",
+//	"integer",
+//	"real",
+//	"array",
+//	"of",
+//	"when",
+//	"do",
+//	"default",
+//	"end_when",
+//	"for",
+//	"end_for",
+//	"malloc",
+//	"free",
+//	"size_of",
+//	"colon",
+//	"semicolon",
+//	"open_parentheses",
+//	"close_parentheses",
+//	"open_brackets",
+//	"close_brackets"
+//};
+
 typedef struct Node
 {
 	Token *tokensArray;

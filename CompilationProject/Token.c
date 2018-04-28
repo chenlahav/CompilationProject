@@ -125,6 +125,7 @@ Token *back_token()
 */
 Token *next_token() 
 { 
+	Token* next_t;
 	// there is still no tokens in the storage.
 	if (currentNode == NULL)
 	{
@@ -151,17 +152,25 @@ Token *next_token()
 		}
 	}
 	//return the next index in the same Node.
+
+	next_t = &currentNode->tokensArray[currentIndex];
+	if (next_t->lineNumber <= 0)
+	{
+		yylex();
+		next_t = &currentNode->tokensArray[currentIndex];
+	}
 	else
 	{
 		currentIndex++;
-		return &currentNode->tokensArray[currentIndex];
+		next_t = &currentNode->tokensArray[currentIndex];
 	}
+	return next_t;
 }
 
-void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char current_lexeme)
+void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char* current_lexeme)
 {
 	// TODO: print to output file
-	printf("Expected: token '%s' at line %d,\nActual token : %s, lexeme %c.", expected_token, line_number, actual_token, current_lexeme);
+	printf("Expected: token '%d' at line %d,\nActual token : %d, lexeme %s.\n", (int)expected_token, line_number, (int)actual_token, current_lexeme);
 }
 
 void match(eTOKENS kind)
