@@ -67,5 +67,7 @@ typedef struct Node
 void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine);
 Token *next_token();
 Token *back_token();
+void match(eTOKENS kind);
+void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char current_lexeme);
 
 #endif

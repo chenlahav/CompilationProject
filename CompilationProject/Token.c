@@ -158,10 +158,10 @@ Token *next_token()
 	}
 }
 
-void print_error(expected_token, actual_token, line_number, current_lexeme)
+void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char current_lexeme)
 {
 	// TODO: print to output file
-	printf("Expected: token '%s' at line %d,\nActual token : %s, lexeme %s.", expected_token, line_number, actual_token, current_lexeme);
+	printf("Expected: token '%s' at line %d,\nActual token : %s, lexeme %c.", expected_token, line_number, actual_token, current_lexeme);
 }
 
 void match(eTOKENS kind)
