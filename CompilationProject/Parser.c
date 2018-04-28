@@ -42,7 +42,7 @@ void parse_definitions_tag()
 				case TOKEN_BEGIN:
 				{
 					//TODO: print to output file
-					printf("DEFINITIONS’ -> e\n");
+					printf("DEFINITIONS' -> e\n");
 					back_token();
 					back_token();
 					break;
@@ -51,7 +51,7 @@ void parse_definitions_tag()
 				case TOKEN_TYPE:
 				{
 					//TODO: print to output file
-					printf("DEFINITIONS’ -> ;DEFINITION DEFINITIONS’\n");
+					printf("DEFINITIONS' -> ;DEFINITION DEFINITIONS'\n");
 					back_token();
 					parse_definition();
 					parse_definitions_tag();
@@ -60,15 +60,16 @@ void parse_definitions_tag()
 				default:
 				{
 					eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_TYPE };
-					parse_print_error(expected_tokens, next_t->kind, next_t->lineNumber, next_t->lexeme, 3);
+					parse_print_error(expected_tokens, next_t->kind, next_t->lineNumber, next_t->lexeme, 2);
 					break;
 				}
 			}
+			break;
 		}
 		default:
 		{
 			eTOKENS expected_tokens[] = { TOKEN_SEMICOLON };
-			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 3);
+			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 1);
 			break;
 		}
 	}
@@ -108,7 +109,7 @@ void parse_definition()
 void parse_var_definition()
 {
 	//TODO: print to output file
-	printf("VAR_DEFINITION -> id : VAR_DEFINITION’\n");
+	printf("VAR_DEFINITION -> id : VAR_DEFINITION'\n");
 	match(TOKEN_ID);
 	match(TOKEN_COLON);
 	parse_var_definition_tag();
@@ -124,14 +125,14 @@ void parse_var_definition_tag()
 		{
 			back_token();
 			//TODO: print to output file
-			printf("VAR_DEFINITION’ -> BASIC_TYPE\n");
+			printf("VAR_DEFINITION' -> BASIC_TYPE\n");
 			parse_basic_type();
 			break;
 		}
 		case TOKEN_ID:
 		{
 			//TODO: print to output file
-			printf("VAR_DEFINITION’ -> type_name\n");
+			printf("VAR_DEFINITION' -> type_name\n");
 			break;
 		}
 		default:
@@ -250,14 +251,14 @@ void parse_pointer_type_tag()
 		{
 			back_token();
 			//TODO: print to output file
-			printf("VAR_DEFINITION’ -> BASIC_TYPE\n");
+			printf("VAR_DEFINITION' -> BASIC_TYPE\n");
 			parse_basic_type();
 			break;
 		}
 		case TOKEN_ID:
 		{
 			//TODO: print to output file
-			printf("VAR_DEFINITION’ -> type_name\n");
+			printf("VAR_DEFINITION' -> type_name\n");
 			break;
 		}
 		default:
@@ -295,9 +296,12 @@ void parse_commands_tag()
 			switch (next_t->kind)
 			{
 				case TOKEN_END:
+				case TOKEN_END_FOR:
+				case TOKEN_END_WHEN:
+				case TOKEN_DEFAULT:
 				{
 					//TODO: print to output file
-					printf("COMMANDS’ -> e\n");
+					printf("COMMANDS' -> e\n");
 					back_token();
 					back_token();
 					break;
@@ -309,7 +313,8 @@ void parse_commands_tag()
 				case TOKEN_BLOCK:
 				{
 					//TODO: print to output file
-					printf("COMMANDS’ -> ;COMMAND COMMANDS’\n");
+					printf("COMMANDS' -> ;COMMAND COMMANDS'\n");
+					back_token();
 					parse_command();
 					parse_commands_tag();
 					break;
@@ -321,6 +326,7 @@ void parse_commands_tag()
 					break;
 				}
 			}
+			break;
 		}
 		default:
 		{
@@ -340,7 +346,7 @@ void parse_command()
 		case TOKEN_ID:
 		{
 			//TODO: print to output file
-			printf("COMMAND -> id  COMMAND’\n");
+			printf("COMMAND -> id  COMMAND'\n");
 			parse_command_tag();
 			break;
 		}
@@ -371,7 +377,7 @@ void parse_command()
 			parse_expression();
 			match(TOKEN_CLOSE_PARENTHESES);
 			match(TOKEN_DO);
-			parse_commands;
+			parse_commands();
 			match(TOKEN_SEMICOLON);
 			match(TOKEN_DEFAULT);
 			parse_commands();
@@ -430,6 +436,7 @@ void parse_command()
 		{
 			//TODO: print to output file
 			printf("COMMAND ->BLOCK\n");
+			back_token();
 			parse_block();
 			break;
 		}
@@ -451,7 +458,7 @@ void parse_command_tag()
 		case TOKEN_POINTER:
 		{
 			//TODO: print to output file
-			printf("COMMAND’ -> RECEIVER’ = EXPRESSION\n");
+			printf("COMMAND' -> RECEIVER' = EXPRESSION\n");
 			back_token();
 			parse_receiver_tag();
 			match(TOKEN_ASSIGNMENT);
@@ -466,7 +473,7 @@ void parse_command_tag()
 				case TOKEN_MALLOC:
 				{
 					//TODO: print to output file
-					printf("COMMAND’ -> = malloc(size_of(type_name))\n");
+					printf("COMMAND' -> = malloc(size_of(type_name))\n");
 					match(TOKEN_OPEN_PARENTHESES);
 					match(TOKEN_SIZE_OF);
 					match(TOKEN_OPEN_PARENTHESES);
@@ -482,8 +489,7 @@ void parse_command_tag()
 				case TOKEN_SIZE_OF:
 				{
 					//TODO: print to output file
-					printf("COMMAND’ -> RECEIVER’ = EXPRESSION\n");
-					back_token();
+					printf("COMMAND' -> RECEIVER' = EXPRESSION\n");
 					back_token();
 					back_token();
 					parse_receiver_tag();
@@ -498,6 +504,7 @@ void parse_command_tag()
 					break;
 				}
 			}
+			break;
 		}
 		default:
 		{
@@ -524,7 +531,7 @@ void parse_receiver_tag()
 		case TOKEN_OPEN_BRACKETS:
 		{
 			//TODO: print to output file
-			printf("RECEIVER’ -> [EXPRESSION]\n");
+			printf("RECEIVER' -> [EXPRESSION]\n");
 			parse_expression();
 			match(TOKEN_CLOSE_BRACKETS);
 			break;
@@ -532,13 +539,13 @@ void parse_receiver_tag()
 		case TOKEN_POINTER:
 		{
 			//TODO: print to output file
-			printf("RECEIVER’ -> ^\n");
+			printf("RECEIVER' -> ^\n");
 			break;
 		}
 		case TOKEN_ASSIGNMENT:
 		{
 			//TODO: print to output file
-			printf("RECEIVER’ -> e\n");
+			printf("RECEIVER' -> e\n");
 			back_token();
 			break;
 		}
@@ -559,7 +566,7 @@ void parse_expression()
 		case TOKEN_ID:
 		{
 			//TODO: print to output file
-			printf("EXPRESSION -> id EXPRESSION’\n");
+			printf("EXPRESSION -> id EXPRESSION'\n");
 			parse_expression_tag();
 			break;
 		}
@@ -614,7 +621,7 @@ void parse_expression_tag()
 		case TOKEN_POWER:
 		{
 			//TODO: print to output file
-			printf("EXPRESSION’ -> ar_op EXPRESSION\n");
+			printf("EXPRESSION' -> ar_op EXPRESSION\n");
 			parse_expression();
 			break;
 		}
@@ -622,7 +629,7 @@ void parse_expression_tag()
 		case TOKEN_POINTER:
 		{
 			//TODO: print to output file
-			printf("EXPRESSION’ -> RECEIVER’\n");
+			printf("EXPRESSION' -> RECEIVER'\n");
 			back_token();
 			parse_receiver_tag();
 			break;
@@ -637,7 +644,7 @@ void parse_expression_tag()
 		case TOKEN_GREATER_EQUAL:
 		{
 			//TODO: print to output file
-			printf("EXPRESSION’ -> RECEIVER’\n");
+			printf("EXPRESSION' -> RECEIVER'\n");
 			back_token();
 			break;
 		}
@@ -650,18 +657,18 @@ void parse_expression_tag()
 	}
 }
 
-void parse_print_error(eTOKENS expected_tokens_kinds[], eTOKENS actual_token_kind, int line_number, char lexeme, int expected_size)
+void parse_print_error(eTOKENS expected_tokens_kinds[], eTOKENS actual_token_kind, int line_number, char* lexeme, int expected_size)
 {
 	int i;
 	//TODO: print to output file
 	printf("Expected: one of tokens ");
 	for (i = 0; i < expected_size; i++)
 	{
-		//printf("%s", token_names[expected_tokens_kinds[i]]);
+		printf("%d", (int)expected_tokens_kinds[i]);
 		if (i != expected_size - 1)
 		{
 			printf(", ");
 		}
 	}
-	//printf("at line %d,\nActual token: %s, lexeme %s.", line_number, token_names[actual_token_kind], lexeme);
+	printf("at line %d,\nActual token: %d, lexeme %s.\n", line_number, (int)actual_token_kind, lexeme);
 }

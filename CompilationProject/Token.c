@@ -125,46 +125,37 @@ Token *back_token()
 */
 Token *next_token() 
 { 
-	Token* next_t;
-	// there is still no tokens in the storage.
+	Token* current;
+	// no tokens in storage
 	if (currentNode == NULL)
+
 	{
 		yylex();
-		return &currentNode->tokensArray[currentIndex];
 	}
-
-	//current Token is the last Token in the TokenArray.
-	if(currentIndex == TOKEN_ARRAY_SIZE-1)
+	else if (currentIndex == TOKEN_ARRAY_SIZE)
 	{
-		//The current Token is the last Token in the TokenStore.
-		if(currentNode->next == NULL)
+		//This is the last node.
+		if (currentNode->next == NULL)
 		{
+			currentIndex--;
 			yylex();
-			return &currentNode->tokensArray[currentIndex];
-			
 		}
-		//return the first Token in the next Node.
 		else
 		{
 			currentNode = currentNode->next;
 			currentIndex = 0;
-			return &currentNode->tokensArray[currentIndex];
 		}
 	}
-	//return the next index in the same Node.
+	current = &currentNode->tokensArray[currentIndex];
 
-	next_t = &currentNode->tokensArray[currentIndex];
-	if (next_t->lineNumber <= 0)
+	if (current->lineNumber <= 0)
 	{
+		currentIndex--;
 		yylex();
-		next_t = &currentNode->tokensArray[currentIndex];
+		current = &currentNode->tokensArray[currentIndex];
 	}
-	else
-	{
-		currentIndex++;
-		next_t = &currentNode->tokensArray[currentIndex];
-	}
-	return next_t;
+	currentIndex++;
+	return current;
 }
 
 void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char* current_lexeme)
