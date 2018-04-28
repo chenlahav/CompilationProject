@@ -61,6 +61,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lex.yy.c" />
+    <ClCompile Include="Parser.c" />
     <ClCompile Include="Token.c" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +69,7 @@
     <None Include="lexicalAnalyzer.lex" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
