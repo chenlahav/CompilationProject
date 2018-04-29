@@ -111,6 +111,7 @@ REAL_NUM {DIGIT}+[.]{DIGIT}+
 
 \n { line_number++; }
 \t|" "|"--".* { }
+<<EOF>> {create_and_store_token(TOKEN_EOF, "", line_number); return;}
 . { fprintf(yyout, "The character '%s' at line: %d does not begin any legal token in the language.\n", yytext, line_number); return;}
 
 %%

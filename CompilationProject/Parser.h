@@ -22,4 +22,6 @@ void parse_receiver();
 void parse_receiver_tag();
 void parse_expression();
 void parse_expression_tag();
-void parse_print_error(eTOKENS expected_tokens[], eTOKENS actual_token, int line_number, char lexeme, int expected_size);
+void parse_print_error(eTOKENS expected_tokens_kinds[], eTOKENS actual_token_kind, int line_number, char* lexeme, int expected_size);
+
+void error_handle(eTOKENS first);

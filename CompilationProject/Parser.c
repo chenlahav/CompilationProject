@@ -1,5 +1,6 @@
 #include "Token.h"
 #include "Parser.h"
+#include "string.h"
 
 void parse_program()
 {
@@ -61,7 +62,19 @@ void parse_definitions_tag()
 				{
 					eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_TYPE };
 					parse_print_error(expected_tokens, next_t->kind, next_t->lineNumber, next_t->lexeme, 2);
-					break;
+					while(next_t->kind != TOKEN_ID && next_t->kind != TOKEN_TYPE && next_t->kind != TOKEN_BEGIN && next_t->kind != TOKEN_EOF)
+					{
+						next_t = next_token();
+					}
+					if (next_t->kind == TOKEN_EOF)
+					{
+						return;
+					}
+					else
+					{
+						next_t = back_token();
+						break;
+					}
 				}
 			}
 			break;
@@ -70,7 +83,19 @@ void parse_definitions_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_SEMICOLON };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 1);
-			break;
+			while (t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+				break;
+			}
 		}
 	}
 }
@@ -100,9 +125,20 @@ void parse_definition()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_TYPE };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 2);
-			break;
+			while (t->kind != TOKEN_ID && t->kind != TOKEN_TYPE && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+				break;
+			}
 		}
-		
 	}
 }
 
@@ -139,7 +175,19 @@ void parse_var_definition_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL, TOKEN_ID };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 3);
-			break;
+			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_ID && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+				break;
+			}
 		}
 	}
 }
@@ -190,7 +238,19 @@ void parse_type_indicator()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL , TOKEN_ARRAY, TOKEN_POINTER};
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 4);
-			break;
+			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_ARRAY && t->kind != TOKEN_POINTER && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+				break;
+			}
 		}
 	}
 }
@@ -216,7 +276,19 @@ void parse_basic_type()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 2);
-			break;
+			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+				break;
+			}
 		}
 	}
 }
@@ -265,7 +337,20 @@ void parse_pointer_type_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL, TOKEN_ID };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 3);
-			break;
+			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_ID && t->kind != TOKEN_POINTER 
+				&& t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+				break;
+			}
 		}
 	}
 }
@@ -321,9 +406,23 @@ void parse_commands_tag()
 				}
 				default:
 				{
-					eTOKENS expected_tokens[] = { TOKEN_END, TOKEN_ID , TOKEN_WHEN, TOKEN_FOR, TOKEN_FREE, TOKEN_BLOCK};
-					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 6);
-					break;
+					eTOKENS expected_tokens[] = { TOKEN_END, TOKEN_ID , TOKEN_WHEN, TOKEN_FOR, TOKEN_FREE, TOKEN_BLOCK, TOKEN_END_FOR, TOKEN_END_WHEN, TOKEN_DEFAULT};
+					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 9);
+					while (t->kind != TOKEN_END && t->kind != TOKEN_ID && t->kind != TOKEN_WHEN && t->kind != TOKEN_FOR &&
+						t->kind != TOKEN_FREE && t->kind != TOKEN_BLOCK && t->kind != TOKEN_END_FOR
+						&& t->kind != TOKEN_END_WHEN && t->kind != TOKEN_DEFAULT && t->kind != TOKEN_EOF)
+					{
+						t = next_token();
+					}
+					if (t->kind == TOKEN_EOF)
+					{
+						return;
+					}
+					else
+					{
+						t = back_token();
+						break;
+					}
 				}
 			}
 			break;
@@ -332,7 +431,19 @@ void parse_commands_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_SEMICOLON };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 1);
-			break;
+			while (t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+				break;
+			}
 		}
 	}
 }
@@ -353,7 +464,7 @@ void parse_command()
 		case TOKEN_WHEN:
 		{
 			//TODO: print to output file
-			printf("COMMAND -> 	when (EXPRESSION rel_op EXPRESSION) do COMMANDS; default COMMANDS; end_when\n");
+			printf("COMMAND -> when (EXPRESSION rel_op EXPRESSION) do COMMANDS; default COMMANDS; end_when\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			parse_expression();
 			next_t = next_token();
@@ -371,9 +482,26 @@ void parse_command()
 				default:
 				{
 					//TODO: print match_print_error
+
+					while (next_t->kind != TOKEN_EQUAL && next_t->kind != TOKEN_NOT_EQUAL && next_t->kind != TOKEN_LESS
+						&& next_t->kind != TOKEN_GREAT && next_t->kind != TOKEN_LESS_EQUAL && next_t->kind != TOKEN_GREATER_EQUAL
+						&& next_t->kind != TOKEN_EOF)
+					{
+						next_t = next_token();
+					}
+
+					if (next_t->kind == TOKEN_EOF)
+					{
+						return;
+					}
+					else
+					{
+						next_t = back_token();
+					}
 					break;
 				}
 			}
+
 			parse_expression();
 			match(TOKEN_CLOSE_PARENTHESES);
 			match(TOKEN_DO);
@@ -388,7 +516,7 @@ void parse_command()
 		case TOKEN_FOR:
 		{
 			//TODO: print to output file
-			printf("COMMAND -> 	for (id = EXPRESSION; id rel_op EXPRESSION; id++) COMMANDS; end_for\n");
+			printf("COMMAND -> for (id = EXPRESSION; id rel_op EXPRESSION; id++) COMMANDS; end_for\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			match(TOKEN_ID);
 			match(TOKEN_ASSIGNMENT);
@@ -410,6 +538,22 @@ void parse_command()
 				default:
 				{
 					//TODO: print match_print_error
+
+					while (next_t->kind != TOKEN_EQUAL && next_t->kind != TOKEN_NOT_EQUAL && next_t->kind != TOKEN_LESS
+						&& next_t->kind != TOKEN_GREAT && next_t->kind != TOKEN_LESS_EQUAL && next_t->kind != TOKEN_GREATER_EQUAL
+						&& next_t->kind != TOKEN_EOF)
+					{
+						next_t = next_token();
+					}
+
+					if (next_t->kind == TOKEN_EOF)
+					{
+						return;
+					}
+					else
+					{
+						next_t = back_token();
+					}
 					break;
 				}
 			}
@@ -435,7 +579,7 @@ void parse_command()
 		case TOKEN_BLOCK:
 		{
 			//TODO: print to output file
-			printf("COMMAND ->BLOCK\n");
+			printf("COMMAND -> BLOCK\n");
 			back_token();
 			parse_block();
 			break;
@@ -444,6 +588,21 @@ void parse_command()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_WHEN, TOKEN_FOR, TOKEN_FREE, TOKEN_BLOCK };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 5);
+
+			while(t->kind != TOKEN_ID && t->kind != TOKEN_WHEN && t->kind != TOKEN_FOR && t->kind != TOKEN_FREE
+				&& t->kind != TOKEN_BLOCK && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+			}
 			break;
 		}
 	}
@@ -501,6 +660,21 @@ void parse_command_tag()
 				{
 					eTOKENS expected_tokens[] = { TOKEN_MALLOC, TOKEN_ID, TOKEN_INT_NUM, TOKEN_REAL_NUM, TOKEN_ADDRESS, TOKEN_SIZE_OF };
 					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 6);
+
+					while (t->kind != TOKEN_MALLOC && t->kind != TOKEN_ID && t->kind != TOKEN_INT_NUM && t->kind != TOKEN_REAL_NUM
+						&& t->kind != TOKEN_ADDRESS && t->kind != TOKEN_SIZE_OF && t->kind != TOKEN_EOF)
+					{
+						t = next_token();
+					}
+
+					if (t->kind == TOKEN_EOF) {
+						return;
+					}
+					else
+					{
+						t = back_token();
+					}
+
 					break;
 				}
 			}
@@ -510,6 +684,21 @@ void parse_command_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_OPEN_BRACKETS, TOKEN_POINTER, TOKEN_ASSIGNMENT };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 3);
+
+			while (t->kind != TOKEN_OPEN_BRACKETS && t->kind != TOKEN_POINTER && t->kind != TOKEN_ASSIGNMENT
+				&& t->kind != TOKEN_EOF) 
+			{
+				t = next_token();
+			}
+
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+			}
 			break;
 		}
 	}
@@ -553,6 +742,20 @@ void parse_receiver_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_OPEN_BRACKETS, TOKEN_POINTER };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 2);
+
+			while (t->kind != TOKEN_OPEN_BRACKETS && t->kind != TOKEN_POINTER && t->kind != TOKEN_EOF) 
+			{
+				t = next_token();
+			}
+
+			if (t == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+			}
 			break;
 		}
 	}
@@ -603,6 +806,21 @@ void parse_expression()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_INT_NUM, TOKEN_REAL_NUM, TOKEN_ADDRESS, TOKEN_SIZE_OF };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 5);
+
+			while(t->kind != TOKEN_ID && t->kind != TOKEN_INT_NUM && t->kind != TOKEN_REAL_NUM && t->kind != TOKEN_ADDRESS
+				&& t->kind != TOKEN_SIZE_OF && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+			}
 			break;
 		}
 		
@@ -652,8 +870,39 @@ void parse_expression_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_ADDITION, TOKEN_SUBTRACTION, TOKEN_MULTIPLICATION, TOKEN_DIVISION, TOKEN_POWER, TOKEN_OPEN_BRACKETS, TOKEN_POINTER };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 7);
+
+			while (t->kind != TOKEN_ADDITION && t->kind != TOKEN_SUBTRACTION && t->kind != TOKEN_MULTIPLICATION && t->kind != TOKEN_DIVISION && t->kind != TOKEN_POWER
+				&& t->kind != TOKEN_OPEN_BRACKETS && t->kind != TOKEN_POINTER && t->kind != TOKEN_EOF)
+			{
+				t = next_token();
+			}
+			if (t->kind == TOKEN_EOF)
+			{
+				return;
+			}
+			else
+			{
+				t = back_token();
+			}
 			break;
 		}
+	}
+}
+
+void error_handle(eTOKENS follow, Token* current_token)
+{
+	while (current_token->kind != follow && current_token->kind != TOKEN_EOF)
+	{
+		current_token = next_token();
+	}
+
+	if (current_token->kind == TOKEN_EOF)
+	{
+		return;
+	}
+	else
+	{
+		current_token = back_token();
 	}
 }
 
@@ -670,5 +919,5 @@ void parse_print_error(eTOKENS expected_tokens_kinds[], eTOKENS actual_token_kin
 			printf(", ");
 		}
 	}
-	printf("at line %d,\nActual token: %d, lexeme %s.\n", line_number, (int)actual_token_kind, lexeme);
+	printf(" at line %d,\nActual token: %d, lexeme %s.\n", line_number, (int)actual_token_kind, lexeme);
 }

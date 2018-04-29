@@ -1,34 +1,5 @@
 ﻿  Parser.c
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(63): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(63): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(72): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(72): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(102): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(102): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(141): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(141): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(192): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(192): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(218): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(218): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(267): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(267): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(325): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(325): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(334): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(334): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(446): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(446): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(503): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(503): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(512): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(512): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(555): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(555): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(605): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(605): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(654): warning C4047: 'function' : 'char' differs in levels of indirection from 'char *'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(654): warning C4024: 'parse_print_error' : different types for formal and actual parameter 4
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(661): warning C4028: formal parameter 4 different from declaration
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(751): warning C4047: '==' : 'Token *' differs in levels of indirection from 'int'
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(893): warning C4029: declared formal parameter list different from definition
   LINK : C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe not found or not built by the last incremental link; performing full link
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe

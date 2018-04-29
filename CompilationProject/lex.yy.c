@@ -305,7 +305,7 @@ int read();
 /* % here is the declaration from section1 %header{  */ 
 #line 59 "lexicalAnalyzer.lex"
 #line 59 "lexicalAnalyzer.lex"
-#line 116 "lexicalAnalyzer.lex"
+#line 117 "lexicalAnalyzer.lex"
 #line 52 "C:\\Users\\CHEN\\Desktop\\flex\\flexskel.h"
 
 #ifdef YY_USE_CLASS
@@ -812,11 +812,11 @@ YY_lex_CLASS::~YY_lex_CLASS()
 #endif
 
 /* % data tables for the DFA go here */ 
-#define YY_END_OF_BUFFER 47
+#define YY_END_OF_BUFFER 48
 typedef int yy_state_type;
 static const short int yy_accept[114] =
     {   0,
-        0,    0,   47,   45,   44,   43,   45,    7,   39,   40,
+        0,    0,   48,   46,   44,   43,   46,    7,   39,   40,
         3,    1,    2,    4,   16,   37,   38,   10,   14,   11,
        36,   41,   42,   15,   36,   36,   36,   36,   36,   36,
        36,   36,   36,   36,   36,   36,    9,    5,    6,   44,
@@ -974,13 +974,13 @@ static yy_state_type yy_last_accepting_state;
 static YY_CHAR *yy_last_accepting_cpos;
 
 #if YY_lex_DEBUG != 0
-static const short int yy_rule_linenum[46] =
+static const short int yy_rule_linenum[47] =
     {   0,
        60,   61,   62,   63,   64,   66,   67,   69,   70,   71,
        72,   73,   74,   76,   78,   80,   82,   84,   85,   86,
        87,   88,   89,   90,   91,   92,   93,   94,   95,   96,
        97,   98,   99,  100,  101,  103,  105,  106,  107,  108,
-      109,  110,  112,  113,  114
+      109,  110,  112,  113,  113,  115
     } ;
 
 #endif
@@ -1320,16 +1320,18 @@ case 44:
 #line 113 "lexicalAnalyzer.lex"
 { }
 	YY_BREAK
-case 45:
+case YY_STATE_EOF(INITIAL):
 #line 114 "lexicalAnalyzer.lex"
-{ fprintf(yyout, "The character '%s' at line: %d does not begin any legal token in the language.\n", yytext, line_number); return;}
+{create_and_store_token(TOKEN_EOF, "", line_number);return;}
 	YY_BREAK
 case 46:
-#line 116 "lexicalAnalyzer.lex"
+#line 115 "lexicalAnalyzer.lex"
+{ fprintf(yyout, "The character '%s' at line: %d does not begin any legal token in the language.\n", yytext, line_number); return;}
+	YY_BREAK
+case 47:
+#line 117 "lexicalAnalyzer.lex"
 ECHO;
 	YY_BREAK
-case YY_STATE_EOF(INITIAL):
-    yyterminate();
 #line 493 "C:\\Users\\CHEN\\Desktop\\flex\\flexskel.cc"
 
 	    case YY_END_OF_BUFFER:
@@ -1922,7 +1924,7 @@ void YY_lex_CLASS::YY_lex_INIT_BUFFER( YY_BUFFER_STATE b, YY_lex_IFILE  *file)
 
     b->yy_eof_status = EOF_NOT_SEEN;
     }
-#line 116 "lexicalAnalyzer.lex"
+#line 117 "lexicalAnalyzer.lex"
 
 
 void main(int argc, char* argv[])
