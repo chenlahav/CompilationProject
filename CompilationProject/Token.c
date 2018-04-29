@@ -22,6 +22,7 @@ Node* currentNode = NULL;
 */
 void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine)
 { 
+	int i;
 	// case 1: there is still no tokens in the storage.
 	if (currentNode == NULL)
 	{
@@ -38,6 +39,12 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine)
 			fprintf(yyout,"\nUnable to allocate memory! \n"); 
 			exit(0);
 		}
+
+		for (i = 0; i < TOKEN_ARRAY_SIZE; i++)
+		{
+			currentNode->tokensArray[i].lexeme = NULL;
+		}
+
 		currentNode->prev = NULL;
 		currentNode->next = NULL;
 	}
@@ -66,6 +73,11 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine)
 				exit(0);
 			}
 			currentNode->next = NULL;
+
+			for (i = 0; i < TOKEN_ARRAY_SIZE; i++)
+			{
+				currentNode->tokensArray[i].lexeme = NULL;
+			}
 		}
 
 		// the array (the current node) is not full
@@ -125,37 +137,45 @@ Token *back_token()
 */
 Token *next_token() 
 { 
-	Token* current;
-	// no tokens in storage
+	// there is still no tokens in the storage.
 	if (currentNode == NULL)
-
 	{
 		yylex();
+		return &currentNode->tokensArray[currentIndex];
 	}
-	else if (currentIndex == TOKEN_ARRAY_SIZE)
+
+	//current Token is the last Token in the TokenArray.
+	if (currentIndex == TOKEN_ARRAY_SIZE - 1)
 	{
-		//This is the last node.
+		//The current Token is the last Token in the TokenStore.
 		if (currentNode->next == NULL)
 		{
-			currentIndex--;
 			yylex();
+			return &currentNode->tokensArray[currentIndex];
+
 		}
+		//return the first Token in the next Node.
 		else
 		{
 			currentNode = currentNode->next;
 			currentIndex = 0;
+			return &currentNode->tokensArray[currentIndex];
 		}
 	}
-	current = &currentNode->tokensArray[currentIndex];
-
-	if (current->lineNumber <= 0)
+	//return the next index in the same Node.
+	else
 	{
-		currentIndex--;
-		yylex();
-		current = &currentNode->tokensArray[currentIndex];
+		if( currentNode->tokensArray[currentIndex+1].lexeme == NULL )
+		{
+			yylex();
+		}
+		else
+		{
+			currentIndex++;
+			
+		}
+		return &currentNode->tokensArray[currentIndex];
 	}
-	currentIndex++;
-	return current;
 }
 
 void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char* current_lexeme)

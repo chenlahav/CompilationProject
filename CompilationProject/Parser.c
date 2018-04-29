@@ -33,11 +33,11 @@ void parse_definitions()
 void parse_definitions_tag()
 {
 	Token* t = next_token();
-	Token* next_t = next_token();
 	switch (t->kind)
 	{
 		case TOKEN_SEMICOLON:
 		{
+			Token* next_t = next_token();
 			switch (next_t->kind)
 			{
 				case TOKEN_BEGIN:
@@ -373,11 +373,12 @@ void parse_commands()
 void parse_commands_tag()
 {
 	Token* t = next_token();
-	Token* next_t = next_token();
+	Token* next_t;
 	switch (t->kind)
 	{
 		case TOKEN_SEMICOLON:
 		{
+			next_t = next_token();
 			switch (next_t->kind)
 			{
 				case TOKEN_END:
@@ -886,23 +887,6 @@ void parse_expression_tag()
 			}
 			break;
 		}
-	}
-}
-
-void error_handle(eTOKENS follow, Token* current_token)
-{
-	while (current_token->kind != follow && current_token->kind != TOKEN_EOF)
-	{
-		current_token = next_token();
-	}
-
-	if (current_token->kind == TOKEN_EOF)
-	{
-		return;
-	}
-	else
-	{
-		current_token = back_token();
 	}
 }
 

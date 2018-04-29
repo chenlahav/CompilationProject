@@ -58,52 +58,6 @@ typedef struct Token
 	int lineNumber;
 }Token;
 
-//char* token_names[] =
-//{
-//	"addition",
-//	"subtraction",
-//	"multiplication",
-//	"division",
-//	"power",
-//	"increment",
-//	"equal",
-//	"not_equal",
-//	"less",
-//	"great",
-//	"less_equal",
-//	"greater_equal",
-//	"assignment",
-//	"pointer",
-//	"address",
-//	"id",
-//	"int_num",
-//	"real_num",
-//	"block",
-//	"begin",
-//	"end",
-//	"type",
-//	"is",
-//	"integer",
-//	"real",
-//	"array",
-//	"of",
-//	"when",
-//	"do",
-//	"default",
-//	"end_when",
-//	"for",
-//	"end_for",
-//	"malloc",
-//	"free",
-//	"size_of",
-//	"colon",
-//	"semicolon",
-//	"open_parentheses",
-//	"close_parentheses",
-//	"open_brackets",
-//	"close_brackets"
-//};
-
 typedef struct Node
 {
 	Token *tokensArray;
@@ -115,6 +69,6 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine);
 Token *next_token();
 Token *back_token();
 void match(eTOKENS kind);
-void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char current_lexeme);
+void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char* current_lexeme);
 
 #endif

@@ -48,7 +48,8 @@
 		"open_parentheses",
 		"close_parentheses",
 		"open_brackets",
-		"close_brackets"
+		"close_brackets",
+		"eof"
 	};
 %}
 

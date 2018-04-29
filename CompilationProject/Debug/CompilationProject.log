@@ -1,5 +1,4 @@
 ﻿  Parser.c
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(751): warning C4047: '==' : 'Token *' differs in levels of indirection from 'int'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(893): warning C4029: declared formal parameter list different from definition
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(752): warning C4047: '==' : 'Token *' differs in levels of indirection from 'int'
   LINK : C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe not found or not built by the last incremental link; performing full link
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
