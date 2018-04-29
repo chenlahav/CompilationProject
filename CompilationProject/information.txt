@@ -10,6 +10,6 @@ Operating system:
 Windows10 - 64Bit
 
 Development enviroment:
-Visual Studio 10
+Visual Studio 15
 
 Notes:

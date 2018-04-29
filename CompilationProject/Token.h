@@ -2,7 +2,9 @@
 #define TOKEN_H
 #include "stdio.h"
 
-extern FILE *yyin, *yyout;
+FILE *yyin, *yyout_lex;
+
+FILE *yyout_syntactic;
 
 typedef enum eTOKENS
 {

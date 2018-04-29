@@ -1,7 +1,7 @@
 #include "Token.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "string.h"
+#include "Parser.h"
 
 /* This package describes the storage of tokens identified in the input text.
 * The storage is a bi-directional list of nodes.
@@ -30,13 +30,13 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine)
 
 		if(currentNode == NULL)
 		{
-			fprintf(yyout,"\nUnable to allocate memory! \n"); 
+			fprintf(yyout_lex,"\nUnable to allocate memory! \n"); 
 			exit(0);
 		}
 		currentNode->tokensArray = (Token*)malloc(sizeof(Token)*TOKEN_ARRAY_SIZE);
 		if(currentNode->tokensArray == NULL)
 		{
-			fprintf(yyout,"\nUnable to allocate memory! \n"); 
+			fprintf(yyout_lex,"\nUnable to allocate memory! \n"); 
 			exit(0);
 		}
 
@@ -60,7 +60,7 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine)
 
 			if(currentNode == NULL)
 			{
-				fprintf(yyout,"\nUnable to allocate memory! \n"); 
+				fprintf(yyout_lex,"\nUnable to allocate memory! \n"); 
 				exit(0);
 			}
 			currentNode->next->prev = currentNode;
@@ -69,7 +69,7 @@ void create_and_store_token(eTOKENS kind, char* lexeme, int numOfLine)
 
 			if(currentNode->tokensArray == NULL)
 			{
-				fprintf(yyout,"\nUnable to allocate memory! \n"); 
+				fprintf(yyout_lex,"\nUnable to allocate memory! \n"); 
 				exit(0);
 			}
 			currentNode->next = NULL;
@@ -180,8 +180,7 @@ Token *next_token()
 
 void print_error(eTOKENS expected_token, eTOKENS actual_token, int line_number, char* current_lexeme)
 {
-	// TODO: print to output file
-	printf("Expected: token '%d' at line %d,\nActual token : %d, lexeme %s.\n", (int)expected_token, line_number, (int)actual_token, current_lexeme);
+	fprintf(yyout_syntactic,"Expected: token '%s' at line %d,\nActual token : %s, lexeme %s.\n", get_token_name(expected_token), line_number, get_token_name(actual_token), current_lexeme);
 }
 
 void match(eTOKENS kind)
@@ -189,6 +188,6 @@ void match(eTOKENS kind)
 	Token *next_t = next_token();
 	if(next_t->kind != kind)
 	{
-		print_error(next_t->kind, kind, next_t->lineNumber, next_t->lexeme);
+		print_error(kind, next_t->kind, next_t->lineNumber, next_t->lexeme);
 	}
 }

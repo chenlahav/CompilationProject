@@ -1327,7 +1327,7 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 46:
 #line 116 "lexicalAnalyzer.lex"
-{ fprintf(yyout, "The character '%s' at line: %d does not begin any legal token in the language.\n", yytext, line_number); return;}
+{ fprintf(yyout_lex, "The character '%s' at line: %d does not begin any legal token in the language.\n", yytext, line_number); return;}
 	YY_BREAK
 case 47:
 #line 118 "lexicalAnalyzer.lex"
@@ -1932,24 +1932,28 @@ void main(int argc, char* argv[])
 {
 	//test1
 	yyin = fopen("C:\\temp\\test1.txt","r");
-	yyout = fopen("C:\\temp\\test1_308334309_203698808_lex.txt","w");
+	yyout_lex = fopen("C:\\temp\\test1_308334309_203698808_lex.txt","w");
+	yyout_syntactic = fopen("C:\\temp\\test1_308334309_203698808_syntactic.txt", "w");
 	parse_program();
 	fclose(yyin);
-	fclose(yyout);
+	fclose(yyout_lex);
+	fclose(yyout_syntactic);
 
 	YY_lex_RESTART();
 	line_number = 1;
 
 	//test2
 	yyin = fopen("C:\\temp\\test2.txt","r");
-	yyout = fopen("C:\\temp\\test2_308334309_203698808_lex.txt","w");
+	yyout_lex = fopen("C:\\temp\\test2_308334309_203698808_lex.txt","w");
+	yyout_syntactic = fopen("C:\\temp\\test2_308334309_203698808_syntactic.txt", "w");
 	parse_program();
 	fclose(yyin);
-	fclose(yyout);
+	fclose(yyout_lex);
+	fclose(yyout_syntactic);
 }
 
 void insertAndPrintToken(eTOKENS kind, char* lexeme, int line_number)
 {
 	create_and_store_token(kind, lexeme, line_number);
-	fprintf(yyout, "Token of kind '%s' was found at line: %d, lexeme: '%s'.\n",tokens[kind], line_number, lexeme);
+	fprintf(yyout_lex, "Token of kind '%s' was found at line: %d, lexeme: '%s'.\n",tokens[kind], line_number, lexeme);
 }

@@ -2,17 +2,67 @@
 #include "Parser.h"
 #include "string.h"
 
+char* get_token_name(int token_number)
+{
+	char* token_names[] =
+	{
+		"addition",
+		"subtraction",
+		"multiplication",
+		"division",
+		"power",
+		"increment",
+		"equal",
+		"not_equal",
+		"less",
+		"great",
+		"less_equal",
+		"greater_equal",
+		"assignment",
+		"pointer",
+		"address",
+		"id",
+		"int_num",
+		"real_num",
+		"block",
+		"begin",
+		"end",
+		"type",
+		"is",
+		"integer",
+		"real",
+		"array",
+		"of",
+		"when",
+		"do",
+		"default",
+		"end_when",
+		"for",
+		"end_for",
+		"malloc",
+		"free",
+		"size_of",
+		"colon",
+		"semicolon",
+		"open_parentheses",
+		"close_parentheses",
+		"open_brackets",
+		"close_brackets",
+		"eof"
+
+	};
+		return token_names[token_number];
+}
+
 void parse_program()
 {
-	//TODO: print to output file
-	printf("PROGRAM -> BLOCK\n");
+	fprintf(yyout_syntactic, "PROGRAM -> BLOCK\n");
 	parse_block();
 }
 
 void parse_block()
 {
-	//TODO: print to output file
-	printf("BLOCK -> block DEFINITIONS; begin COMMANDS; end\n");
+	fprintf(yyout_syntactic, "BLOCK -> block DEFINITIONS; begin COMMANDS; end\n");
 	match(TOKEN_BLOCK);
 	parse_definitions();
 	match(TOKEN_SEMICOLON);
@@ -24,8 +74,7 @@ void parse_block()
 
 void parse_definitions()
 {
-	//TODO: print to output file
-	printf("DEFINITIONS -> DEFINITION DEFINITIONS'\n");
+	fprintf(yyout_syntactic, "DEFINITIONS -> DEFINITION DEFINITIONS'\n");
 	parse_definition();
 	parse_definitions_tag();
 }
@@ -42,8 +91,7 @@ void parse_definitions_tag()
 			{
 				case TOKEN_BEGIN:
 				{
-					//TODO: print to output file
-					printf("DEFINITIONS' -> e\n");
+					fprintf(yyout_syntactic, "DEFINITIONS' -> e\n");
 					back_token();
 					back_token();
 					break;
@@ -51,8 +99,7 @@ void parse_definitions_tag()
 				case TOKEN_ID:
 				case TOKEN_TYPE:
 				{
-					//TODO: print to output file
-					printf("DEFINITIONS' -> ;DEFINITION DEFINITIONS'\n");
+					fprintf(yyout_syntactic, "DEFINITIONS' -> ;DEFINITION DEFINITIONS'\n");
 					back_token();
 					parse_definition();
 					parse_definitions_tag();
@@ -108,16 +155,14 @@ void parse_definition()
 		case TOKEN_ID:
 		{
 			back_token();
-			//TODO: print to output file
-			printf("DEFINITION -> VAR_DEFINITION\n");
+			fprintf(yyout_syntactic, "DEFINITION -> VAR_DEFINITION\n");
 			parse_var_definition();
 			break;
 		}
 		case TOKEN_TYPE:
 		{
 			back_token();
-			//TODO: print to output file
-			printf("DEFINITION -> TYPE_DEFINITION\n");
+			fprintf(yyout_syntactic, "DEFINITION -> TYPE_DEFINITION\n");
 			parse_type_definition();
 			break;
 		}
@@ -144,8 +189,7 @@ void parse_definition()
 
 void parse_var_definition()
 {
-	//TODO: print to output file
-	printf("VAR_DEFINITION -> id : VAR_DEFINITION'\n");
+	fprintf(yyout_syntactic, "VAR_DEFINITION -> id : VAR_DEFINITION'\n");
 	match(TOKEN_ID);
 	match(TOKEN_COLON);
 	parse_var_definition_tag();
@@ -160,15 +204,13 @@ void parse_var_definition_tag()
 		case TOKEN_REAL:
 		{
 			back_token();
-			//TODO: print to output file
-			printf("VAR_DEFINITION' -> BASIC_TYPE\n");
+			fprintf(yyout_syntactic, "VAR_DEFINITION' -> BASIC_TYPE\n");
 			parse_basic_type();
 			break;
 		}
 		case TOKEN_ID:
 		{
-			//TODO: print to output file
-			printf("VAR_DEFINITION' -> type_name\n");
+			fprintf(yyout_syntactic, "VAR_DEFINITION' -> type_name\n");
 			break;
 		}
 		default:
@@ -194,8 +236,7 @@ void parse_var_definition_tag()
 
 void parse_type_definition() 
 {
-	//TODO: print to output file
-	printf("TYPE_DEFINITION -> type type_name is TYPE_INDICATOR\n");
+	fprintf(yyout_syntactic, "TYPE_DEFINITION -> type type_name is TYPE_INDICATOR\n");
 	
 	match(TOKEN_TYPE);
 	match(TOKEN_ID);
@@ -213,24 +254,21 @@ void parse_type_indicator()
 		case TOKEN_REAL:
 		{
 			back_token();
-			//TODO: print to output file
-			printf("TYPE_INDICATOR -> BASIC_TYPE\n");
+			fprintf(yyout_syntactic, "TYPE_INDICATOR -> BASIC_TYPE\n");
 			parse_basic_type();
 			break;
 		}
 		case TOKEN_ARRAY:
 		{
 			back_token();
-			//TODO: print to output file
-			printf("TYPE_INDICATOR -> ARRAY_TYPE\n");
+			fprintf(yyout_syntactic, "TYPE_INDICATOR -> ARRAY_TYPE\n");
 			parse_array_type();
 			break;
 		}
 		case TOKEN_POINTER:
 		{
 			back_token();
-			//TODO: print to output file
-			printf("TYPE_INDICATOR -> POINTER_TYPE\n");
+			fprintf(yyout_syntactic, "TYPE_INDICATOR -> POINTER_TYPE\n");
 			parse_pointer_type();
 			break;
 		}
@@ -262,14 +300,12 @@ void parse_basic_type()
 	{
 		case TOKEN_INTEGER:
 		{
-			//TODO: print to output file
-			printf("BASIC_TYPE -> integer\n");
+			fprintf(yyout_syntactic, "BASIC_TYPE -> integer\n");
 			break;
 		}
 		case TOKEN_REAL:
 		{
-			//TODO: print to output file
-			printf("BASIC_TYPE -> real\n");
+			fprintf(yyout_syntactic, "BASIC_TYPE -> real\n");
 			break;
 		}
 		default:
@@ -295,8 +331,7 @@ void parse_basic_type()
 
 void parse_array_type()
 {
-	//TODO: print to output file
-	printf("ARRAY_TYPE -> array [SIZE] of BASIC_TYPE\n");
+	fprintf(yyout_syntactic, "ARRAY_TYPE -> array [SIZE] of BASIC_TYPE\n");
 	match(TOKEN_ARRAY);
 	match(TOKEN_OPEN_BRACKETS);
 	parse_size();
@@ -307,8 +342,7 @@ void parse_array_type()
 
 void parse_pointer_type()
 {
-	//TODO: print to output file
-	printf("POINTER_TYPE -> ^POINTER_TYPE'\n");
+	fprintf(yyout_syntactic, "POINTER_TYPE -> ^POINTER_TYPE'\n");
 	match(TOKEN_POINTER);
 	parse_pointer_type_tag();
 }
@@ -322,15 +356,13 @@ void parse_pointer_type_tag()
 		case TOKEN_REAL:
 		{
 			back_token();
-			//TODO: print to output file
-			printf("VAR_DEFINITION' -> BASIC_TYPE\n");
+			fprintf(yyout_syntactic, "VAR_DEFINITION' -> BASIC_TYPE\n");
 			parse_basic_type();
 			break;
 		}
 		case TOKEN_ID:
 		{
-			//TODO: print to output file
-			printf("VAR_DEFINITION' -> type_name\n");
+			fprintf(yyout_syntactic,"VAR_DEFINITION' -> type_name\n");
 			break;
 		}
 		default:
@@ -357,15 +389,13 @@ void parse_pointer_type_tag()
 
 void parse_size()
 {
-	//TODO: print to output file
-	printf("SIZE -> int_num\n");
+	fprintf(yyout_syntactic, "SIZE -> int_num\n");
 	match(TOKEN_INT_NUM);
 }
 
 void parse_commands() 
 {
-	//TODO: print to output file
-	printf("COMMANDS -> COMMAND COMMANDS'\n");
+	fprintf(yyout_syntactic, "COMMANDS -> COMMAND COMMANDS'\n");
 	parse_command();
 	parse_commands_tag();
 }
@@ -386,8 +416,7 @@ void parse_commands_tag()
 				case TOKEN_END_WHEN:
 				case TOKEN_DEFAULT:
 				{
-					//TODO: print to output file
-					printf("COMMANDS' -> e\n");
+					fprintf(yyout_syntactic, "COMMANDS' -> e\n");
 					back_token();
 					back_token();
 					break;
@@ -398,8 +427,7 @@ void parse_commands_tag()
 				case TOKEN_FREE:
 				case TOKEN_BLOCK:
 				{
-					//TODO: print to output file
-					printf("COMMANDS' -> ;COMMAND COMMANDS'\n");
+					fprintf(yyout_syntactic, "COMMANDS' -> ;COMMAND COMMANDS'\n");
 					back_token();
 					parse_command();
 					parse_commands_tag();
@@ -457,15 +485,13 @@ void parse_command()
 	{
 		case TOKEN_ID:
 		{
-			//TODO: print to output file
-			printf("COMMAND -> id  COMMAND'\n");
+			fprintf(yyout_syntactic, "COMMAND -> id  COMMAND'\n");
 			parse_command_tag();
 			break;
 		}
 		case TOKEN_WHEN:
 		{
-			//TODO: print to output file
-			printf("COMMAND -> when (EXPRESSION rel_op EXPRESSION) do COMMANDS; default COMMANDS; end_when\n");
+			fprintf(yyout_syntactic, "COMMAND -> when (EXPRESSION rel_op EXPRESSION) do COMMANDS; default COMMANDS; end_when\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			parse_expression();
 			next_t = next_token();
@@ -482,8 +508,8 @@ void parse_command()
 				}
 				default:
 				{
-					//TODO: print match_print_error
-
+					eTOKENS expected_tokens[] = { TOKEN_EQUAL, TOKEN_NOT_EQUAL , TOKEN_LESS, TOKEN_GREAT, TOKEN_LESS_EQUAL, TOKEN_GREATER_EQUAL };
+					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 6);
 					while (next_t->kind != TOKEN_EQUAL && next_t->kind != TOKEN_NOT_EQUAL && next_t->kind != TOKEN_LESS
 						&& next_t->kind != TOKEN_GREAT && next_t->kind != TOKEN_LESS_EQUAL && next_t->kind != TOKEN_GREATER_EQUAL
 						&& next_t->kind != TOKEN_EOF)
@@ -516,8 +542,7 @@ void parse_command()
 		}
 		case TOKEN_FOR:
 		{
-			//TODO: print to output file
-			printf("COMMAND -> for (id = EXPRESSION; id rel_op EXPRESSION; id++) COMMANDS; end_for\n");
+			fprintf(yyout_syntactic, "COMMAND -> for (id = EXPRESSION; id rel_op EXPRESSION; id++) COMMANDS; end_for\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			match(TOKEN_ID);
 			match(TOKEN_ASSIGNMENT);
@@ -538,8 +563,8 @@ void parse_command()
 				}
 				default:
 				{
-					//TODO: print match_print_error
-
+					eTOKENS expected_tokens[] = { TOKEN_EQUAL, TOKEN_NOT_EQUAL , TOKEN_LESS, TOKEN_GREAT, TOKEN_LESS_EQUAL, TOKEN_GREATER_EQUAL };
+					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 6);
 					while (next_t->kind != TOKEN_EQUAL && next_t->kind != TOKEN_NOT_EQUAL && next_t->kind != TOKEN_LESS
 						&& next_t->kind != TOKEN_GREAT && next_t->kind != TOKEN_LESS_EQUAL && next_t->kind != TOKEN_GREATER_EQUAL
 						&& next_t->kind != TOKEN_EOF)
@@ -570,8 +595,7 @@ void parse_command()
 		}
 		case TOKEN_FREE:
 		{
-			//TODO: print to output file
-			printf("COMMAND -> free(id)\n");
+			fprintf(yyout_syntactic, "COMMAND -> free(id)\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			match(TOKEN_ID);
 			match(TOKEN_CLOSE_PARENTHESES);
@@ -579,8 +603,7 @@ void parse_command()
 		}
 		case TOKEN_BLOCK:
 		{
-			//TODO: print to output file
-			printf("COMMAND -> BLOCK\n");
+			fprintf(yyout_syntactic, "COMMAND -> BLOCK\n");
 			back_token();
 			parse_block();
 			break;
@@ -617,8 +640,7 @@ void parse_command_tag()
 		case TOKEN_OPEN_BRACKETS:
 		case TOKEN_POINTER:
 		{
-			//TODO: print to output file
-			printf("COMMAND' -> RECEIVER' = EXPRESSION\n");
+			fprintf(yyout_syntactic, "COMMAND' -> RECEIVER' = EXPRESSION\n");
 			back_token();
 			parse_receiver_tag();
 			match(TOKEN_ASSIGNMENT);
@@ -632,8 +654,7 @@ void parse_command_tag()
 			{
 				case TOKEN_MALLOC:
 				{
-					//TODO: print to output file
-					printf("COMMAND' -> = malloc(size_of(type_name))\n");
+					fprintf(yyout_syntactic, "COMMAND' -> = malloc(size_of(type_name))\n");
 					match(TOKEN_OPEN_PARENTHESES);
 					match(TOKEN_SIZE_OF);
 					match(TOKEN_OPEN_PARENTHESES);
@@ -648,8 +669,7 @@ void parse_command_tag()
 				case TOKEN_ADDRESS:
 				case TOKEN_SIZE_OF:
 				{
-					//TODO: print to output file
-					printf("COMMAND' -> RECEIVER' = EXPRESSION\n");
+					fprintf(yyout_syntactic, "COMMAND' -> RECEIVER' = EXPRESSION\n");
 					back_token();
 					back_token();
 					parse_receiver_tag();
@@ -707,8 +727,7 @@ void parse_command_tag()
 
 void parse_receiver()
 {
-	//TODO: print to output file
-	printf("RECEIVER -> id RECEIVER’\n");
+	fprintf(yyout_syntactic, "RECEIVER -> id RECEIVER’\n");
 	match(TOKEN_ID);
 	parse_receiver_tag();
 }
@@ -720,22 +739,19 @@ void parse_receiver_tag()
 	{
 		case TOKEN_OPEN_BRACKETS:
 		{
-			//TODO: print to output file
-			printf("RECEIVER' -> [EXPRESSION]\n");
+			fprintf(yyout_syntactic, "RECEIVER' -> [EXPRESSION]\n");
 			parse_expression();
 			match(TOKEN_CLOSE_BRACKETS);
 			break;
 		}
 		case TOKEN_POINTER:
 		{
-			//TODO: print to output file
-			printf("RECEIVER' -> ^\n");
+			fprintf(yyout_syntactic, "RECEIVER' -> ^\n");
 			break;
 		}
 		case TOKEN_ASSIGNMENT:
 		{
-			//TODO: print to output file
-			printf("RECEIVER' -> e\n");
+			fprintf(yyout_syntactic, "RECEIVER' -> e\n");
 			back_token();
 			break;
 		}
@@ -769,34 +785,29 @@ void parse_expression()
 	{
 		case TOKEN_ID:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION -> id EXPRESSION'\n");
+			fprintf(yyout_syntactic, "EXPRESSION -> id EXPRESSION'\n");
 			parse_expression_tag();
 			break;
 		}
 		case TOKEN_INT_NUM:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION -> int_num\n");
+			fprintf(yyout_syntactic, "EXPRESSION -> int_num\n");
 			break;
 		}
 		case TOKEN_REAL_NUM:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION -> real_num\n");
+			fprintf(yyout_syntactic, "EXPRESSION -> real_num\n");
 			break;
 		}
 		case TOKEN_ADDRESS:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION -> &id\n");
+			fprintf(yyout_syntactic, "EXPRESSION -> &id\n");
 			match(TOKEN_ID);
 			break;
 		}
 		case TOKEN_SIZE_OF:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION -> size_of(type_name)\n");
+			fprintf(yyout_syntactic, "EXPRESSION -> size_of(type_name)\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			match(TOKEN_ID);
 			match(TOKEN_OPEN_PARENTHESES);
@@ -839,16 +850,14 @@ void parse_expression_tag()
 		case TOKEN_DIVISION:
 		case TOKEN_POWER:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION' -> ar_op EXPRESSION\n");
+			fprintf(yyout_syntactic, "EXPRESSION' -> ar_op EXPRESSION\n");
 			parse_expression();
 			break;
 		}
 		case TOKEN_OPEN_BRACKETS:
 		case TOKEN_POINTER:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION' -> RECEIVER'\n");
+			fprintf(yyout_syntactic, "EXPRESSION' -> RECEIVER'\n");
 			back_token();
 			parse_receiver_tag();
 			break;
@@ -862,8 +871,7 @@ void parse_expression_tag()
 		case TOKEN_LESS_EQUAL:
 		case TOKEN_GREATER_EQUAL:
 		{
-			//TODO: print to output file
-			printf("EXPRESSION' -> RECEIVER'\n");
+			fprintf(yyout_syntactic, "EXPRESSION' -> RECEIVER'\n");
 			back_token();
 			break;
 		}
@@ -893,15 +901,14 @@ void parse_expression_tag()
 void parse_print_error(eTOKENS expected_tokens_kinds[], eTOKENS actual_token_kind, int line_number, char* lexeme, int expected_size)
 {
 	int i;
-	//TODO: print to output file
-	printf("Expected: one of tokens ");
+	fprintf(yyout_syntactic, "Expected: one of tokens ");
 	for (i = 0; i < expected_size; i++)
 	{
-		printf("%d", (int)expected_tokens_kinds[i]);
+		fprintf(yyout_syntactic, "%s", get_token_name(expected_tokens_kinds[i]));
 		if (i != expected_size - 1)
 		{
-			printf(", ");
+			fprintf(yyout_syntactic, ", ");
 		}
 	}
-	printf(" at line %d,\nActual token: %d, lexeme %s.\n", line_number, (int)actual_token_kind, lexeme);
+	fprintf(yyout_syntactic, " at line %d,\nActual token: %s, lexeme %s.\n", line_number, get_token_name(actual_token_kind), lexeme);
 }
