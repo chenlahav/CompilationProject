@@ -109,7 +109,7 @@ void parse_definitions_tag()
 				{
 					eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_TYPE };
 					parse_print_error(expected_tokens, next_t->kind, next_t->lineNumber, next_t->lexeme, 2);
-					while(next_t->kind != TOKEN_ID && next_t->kind != TOKEN_TYPE && next_t->kind != TOKEN_BEGIN && next_t->kind != TOKEN_EOF)
+					while( next_t->kind != TOKEN_BEGIN && next_t->kind != TOKEN_EOF)
 					{
 						next_t = next_token();
 					}
@@ -170,7 +170,7 @@ void parse_definition()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_TYPE };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 2);
-			while (t->kind != TOKEN_ID && t->kind != TOKEN_TYPE && t->kind != TOKEN_EOF)
+			while (t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
@@ -217,7 +217,7 @@ void parse_var_definition_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL, TOKEN_ID };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 3);
-			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_ID && t->kind != TOKEN_EOF)
+			while (t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
@@ -276,7 +276,7 @@ void parse_type_indicator()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL , TOKEN_ARRAY, TOKEN_POINTER};
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 4);
-			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_ARRAY && t->kind != TOKEN_POINTER && t->kind != TOKEN_EOF)
+			while (t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
@@ -312,7 +312,7 @@ void parse_basic_type()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 2);
-			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_EOF)
+			while (t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
@@ -369,8 +369,7 @@ void parse_pointer_type_tag()
 		{
 			eTOKENS expected_tokens[] = { TOKEN_INTEGER, TOKEN_REAL, TOKEN_ID };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 3);
-			while (t->kind != TOKEN_INTEGER && t->kind != TOKEN_REAL && t->kind != TOKEN_ID && t->kind != TOKEN_POINTER 
-				&& t->kind != TOKEN_EOF)
+			while (t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
@@ -437,10 +436,9 @@ void parse_commands_tag()
 				{
 					eTOKENS expected_tokens[] = { TOKEN_END, TOKEN_ID , TOKEN_WHEN, TOKEN_FOR, TOKEN_FREE, TOKEN_BLOCK, TOKEN_END_FOR, TOKEN_END_WHEN, TOKEN_DEFAULT};
 					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 9);
-					while (t->kind != TOKEN_END && t->kind != TOKEN_ID && t->kind != TOKEN_WHEN && t->kind != TOKEN_FOR &&
-						t->kind != TOKEN_FREE && t->kind != TOKEN_BLOCK && t->kind != TOKEN_END_FOR
-						&& t->kind != TOKEN_END_WHEN && t->kind != TOKEN_DEFAULT && t->kind != TOKEN_EOF)
-					{
+					while (t->kind != TOKEN_END && t->kind != TOKEN_END_FOR && t->kind != TOKEN_END_WHEN
+						&& t->kind != TOKEN_DEFAULT && t->kind != TOKEN_EOF)
+									{
 						t = next_token();
 					}
 					if (t->kind == TOKEN_EOF)
@@ -510,8 +508,8 @@ void parse_command()
 				{
 					eTOKENS expected_tokens[] = { TOKEN_EQUAL, TOKEN_NOT_EQUAL , TOKEN_LESS, TOKEN_GREAT, TOKEN_LESS_EQUAL, TOKEN_GREATER_EQUAL };
 					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 6);
-					while (next_t->kind != TOKEN_EQUAL && next_t->kind != TOKEN_NOT_EQUAL && next_t->kind != TOKEN_LESS
-						&& next_t->kind != TOKEN_GREAT && next_t->kind != TOKEN_LESS_EQUAL && next_t->kind != TOKEN_GREATER_EQUAL
+					while (next_t->kind != TOKEN_SIZE_OF && next_t->kind != TOKEN_ADDRESS
+						&& next_t->kind != TOKEN_REAL_NUM && next_t->kind != TOKEN_INT_NUM && next_t->kind != TOKEN_ID
 						&& next_t->kind != TOKEN_EOF)
 					{
 						next_t = next_token();
@@ -565,8 +563,8 @@ void parse_command()
 				{
 					eTOKENS expected_tokens[] = { TOKEN_EQUAL, TOKEN_NOT_EQUAL , TOKEN_LESS, TOKEN_GREAT, TOKEN_LESS_EQUAL, TOKEN_GREATER_EQUAL };
 					parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 6);
-					while (next_t->kind != TOKEN_EQUAL && next_t->kind != TOKEN_NOT_EQUAL && next_t->kind != TOKEN_LESS
-						&& next_t->kind != TOKEN_GREAT && next_t->kind != TOKEN_LESS_EQUAL && next_t->kind != TOKEN_GREATER_EQUAL
+					while (next_t->kind != TOKEN_SIZE_OF && next_t->kind != TOKEN_ADDRESS
+						&& next_t->kind != TOKEN_REAL_NUM && next_t->kind != TOKEN_INT_NUM && next_t->kind != TOKEN_ID
 						&& next_t->kind != TOKEN_EOF)
 					{
 						next_t = next_token();
@@ -613,8 +611,7 @@ void parse_command()
 			eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_WHEN, TOKEN_FOR, TOKEN_FREE, TOKEN_BLOCK };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 5);
 
-			while(t->kind != TOKEN_ID && t->kind != TOKEN_WHEN && t->kind != TOKEN_FOR && t->kind != TOKEN_FREE
-				&& t->kind != TOKEN_BLOCK && t->kind != TOKEN_EOF)
+			while(t->kind != TOKEN_SEMICOLON && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
@@ -706,8 +703,7 @@ void parse_command_tag()
 			eTOKENS expected_tokens[] = { TOKEN_OPEN_BRACKETS, TOKEN_POINTER, TOKEN_ASSIGNMENT };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 3);
 
-			while (t->kind != TOKEN_OPEN_BRACKETS && t->kind != TOKEN_POINTER && t->kind != TOKEN_ASSIGNMENT
-				&& t->kind != TOKEN_EOF) 
+			while (t->kind != TOKEN_ASSIGNMENT && t->kind != TOKEN_EOF) 
 			{
 				t = next_token();
 			}
@@ -760,7 +756,7 @@ void parse_receiver_tag()
 			eTOKENS expected_tokens[] = { TOKEN_OPEN_BRACKETS, TOKEN_POINTER };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 2);
 
-			while (t->kind != TOKEN_OPEN_BRACKETS && t->kind != TOKEN_POINTER && t->kind != TOKEN_EOF) 
+			while (t->kind != TOKEN_ASSIGNMENT && t->kind != TOKEN_EOF) 
 			{
 				t = next_token();
 			}
@@ -810,7 +806,7 @@ void parse_expression()
 			fprintf(yyout_syntactic, "EXPRESSION -> size_of(type_name)\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			match(TOKEN_ID);
-			match(TOKEN_OPEN_PARENTHESES);
+			match(TOKEN_CLOSE_PARENTHESES);
 			break;
 		}
 
@@ -819,8 +815,9 @@ void parse_expression()
 			eTOKENS expected_tokens[] = { TOKEN_ID, TOKEN_INT_NUM, TOKEN_REAL_NUM, TOKEN_ADDRESS, TOKEN_SIZE_OF };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 5);
 
-			while(t->kind != TOKEN_ID && t->kind != TOKEN_INT_NUM && t->kind != TOKEN_REAL_NUM && t->kind != TOKEN_ADDRESS
-				&& t->kind != TOKEN_SIZE_OF && t->kind != TOKEN_EOF)
+			while(t->kind != TOKEN_LESS && t->kind != TOKEN_GREAT && t->kind != TOKEN_LESS_EQUAL && t->kind != TOKEN_GREATER_EQUAL 
+				&& t->kind != TOKEN_NOT_EQUAL && t->kind != TOKEN_EQUAL && t->kind != TOKEN_SEMICOLON
+				&& t->kind != TOKEN_CLOSE_BRACKETS && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
@@ -880,8 +877,9 @@ void parse_expression_tag()
 			eTOKENS expected_tokens[] = { TOKEN_ADDITION, TOKEN_SUBTRACTION, TOKEN_MULTIPLICATION, TOKEN_DIVISION, TOKEN_POWER, TOKEN_OPEN_BRACKETS, TOKEN_POINTER };
 			parse_print_error(expected_tokens, t->kind, t->lineNumber, t->lexeme, 7);
 
-			while (t->kind != TOKEN_ADDITION && t->kind != TOKEN_SUBTRACTION && t->kind != TOKEN_MULTIPLICATION && t->kind != TOKEN_DIVISION && t->kind != TOKEN_POWER
-				&& t->kind != TOKEN_OPEN_BRACKETS && t->kind != TOKEN_POINTER && t->kind != TOKEN_EOF)
+			while (t->kind != TOKEN_LESS && t->kind != TOKEN_GREAT && t->kind != TOKEN_LESS_EQUAL && t->kind != TOKEN_GREATER_EQUAL
+				&& t->kind != TOKEN_NOT_EQUAL && t->kind != TOKEN_EQUAL && t->kind != TOKEN_SEMICOLON
+				&& t->kind != TOKEN_CLOSE_BRACKETS && t->kind != TOKEN_EOF)
 			{
 				t = next_token();
 			}
