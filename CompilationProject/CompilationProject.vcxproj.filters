@@ -24,6 +24,9 @@
     <ClCompile Include="Parser.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SymbolTable.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="information.txt">
