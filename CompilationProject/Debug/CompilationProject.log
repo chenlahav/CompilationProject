@@ -1,4 +1,8 @@
 ﻿  SymbolTable.c
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(20): warning C4013: 'tolower' undefined; assuming extern returning int
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(17): warning C4013: 'tolower' undefined; assuming extern returning int
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(50): warning C4013: 'malloc' undefined; assuming extern returning int
+  LinkList.c
+c:\users\chen\documents\github\compilationproject\compilationproject\linklist.c(6): warning C4013: 'malloc' undefined; assuming extern returning int
+  Generating Code...
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)

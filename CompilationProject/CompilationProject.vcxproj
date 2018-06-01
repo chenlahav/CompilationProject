@@ -62,6 +62,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="lex.yy.c" />
+    <ClCompile Include="LinkList.c" />
     <ClCompile Include="Parser.c" />
     <ClCompile Include="SymbolTable.c" />
     <ClCompile Include="Token.c" />
@@ -74,6 +75,7 @@
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Symbol.h" />
+    <ClInclude Include="SymbolTable.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

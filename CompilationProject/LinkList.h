@@ -12,15 +12,7 @@ typedef struct LinkList
 	Node* head;
 }LinkList;
 
-void insertToLinkList(LinkList* list, Symbol data)
-{
-	Node* new_node = (Node*)malloc(sizeof(Node*));
-	new_node->data = data;
-	if (new_node != NULL)
-	{
-		new_node->next = list->head;
-	}
-	list->head = new_node;
-	
-}
+LinkList *initLinkList();
+
+void insertToLinkList(LinkList* list, Symbol data);
 

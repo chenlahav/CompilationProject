@@ -1,13 +1,16 @@
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "LinkList.h"
+#include "SymbolTable.h"
 #include "Symbol.h"
 
-#define SIZE 100
-
-LinkList* SymbolTable[SIZE];
+void initSymbolTable()
+{
+	int i;
+	for (i = 0; i < SIZE; i++)
+	{
+		SymbolTable[i] = initLinkList();
+	}
+}
 
 unsigned int hashCode(char* name)
 {
@@ -21,10 +24,10 @@ unsigned int hashCode(char* name)
 		++p;
 	}
 
-	return result;
+	return result % SIZE;
 }
 
-struct Symbol *lookup(char* key) { 
+Symbol *lookup(char* key) { 
 	//get the hash 
 	int hashIndex = hashCode(key);
 
@@ -48,19 +51,9 @@ void insertToSymbolTable(Symbol value)
 	//get the hash 
 	int hashIndex = hashCode(value.Name);
 
-	if (SymbolTable[hashIndex] == NULL)
+	Symbol *lookupResult= lookup(value.Name);
+	if (lookupResult == NULL)
 	{
-		LinkList *link_list = (LinkList*) malloc(sizeof(LinkList));
-		SymbolTable[hashIndex] = link_list;
 		insertToLinkList(SymbolTable[hashIndex], value);
-	}
-
-	else
-	{
-		Symbol *lookupResult= lookup(value.Name);
-		if (lookupResult == NULL)
-		{
-			insertToLinkList(SymbolTable[hashIndex], value);
-		}
 	}
 }
