@@ -11,7 +11,7 @@ LinkList *initLinkList()
 
 void insertToLinkList(LinkList* list, Symbol data)
 {
-	Node* new_node = (Node*)malloc(sizeof(Node*));
+	SymbolNode* new_node = (SymbolNode*)malloc(sizeof(SymbolNode*));
 	new_node->data = data;
 	if (new_node != NULL)
 	{

@@ -31,7 +31,7 @@ Symbol *lookup(char* key) {
 	//get the hash 
 	int hashIndex = hashCode(key);
 
-	Node* currentNode = SymbolTable[hashIndex]->head;
+	SymbolNode* currentNode = SymbolTable[hashIndex]->head;
 
 	//move in array until an empty 
 	while (currentNode != NULL) 

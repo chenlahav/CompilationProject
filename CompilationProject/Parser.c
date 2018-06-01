@@ -1,6 +1,7 @@
 #include "Token.h"
 #include "Parser.h"
 #include "string.h"
+#include "SymbolTable.h"
 
 char* get_token_name(int token_number)
 {
@@ -56,6 +57,7 @@ char* get_token_name(int token_number)
 
 void parse_program()
 {
+	initSymbolTable();
 	fprintf(yyout_syntactic, "PROGRAM -> BLOCK\n");
 	parse_block();
 }

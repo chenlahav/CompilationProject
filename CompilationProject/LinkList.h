@@ -1,15 +1,15 @@
 #pragma once
 #include "Symbol.h"
 
-typedef struct Node
+typedef struct SymbolNode
 {
 	Symbol data;
-	struct Node *next;
-}Node;
+	struct SymbolNode *next;
+}SymbolNode;
 
 typedef struct LinkList
 {
-	Node* head;
+	SymbolNode* head;
 }LinkList;
 
 LinkList *initLinkList();
