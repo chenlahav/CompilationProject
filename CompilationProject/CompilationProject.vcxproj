@@ -71,7 +71,9 @@
     <None Include="lexicalAnalyzer.lex" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LinkList.h" />
     <ClInclude Include="Parser.h" />
+    <ClInclude Include="Symbol.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

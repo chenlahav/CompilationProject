@@ -1,10 +1,10 @@
 ﻿  SymbolTable.c
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(25): warning C4013: 'tolower' undefined; assuming extern returning int
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(38): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(38): warning C4024: 'hashCode': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(63): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(63): warning C4024: 'hashCode': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(81): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
-c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(81): warning C4024: 'hashCode': different types for formal and actual parameter 1
-  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
-  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(26): warning C4013: 'tolower' undefined; assuming extern returning int
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(39): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(39): warning C4024: 'hashCode': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(60): error C2440: '=': cannot convert from 'Symbol' to 'LinkList'
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(64): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(64): warning C4024: 'hashCode': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(82): warning C4047: 'function': 'char *' differs in levels of indirection from 'int'
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(82): warning C4024: 'hashCode': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltable.c(111): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type 'LinkList'

@@ -2,11 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "LinkList.h"
 
 #define SIZE 20
 
 struct Item {
-	int data;
+	LinkList value;
 	int key;
 };
 
@@ -53,10 +54,10 @@ struct Item *search(int key) {
 	return NULL;
 }
 
-void insert(int key, int data) {
+void insert(int key, Symbol value) {
 
 	struct Item *item = (struct Item*) malloc(sizeof(struct Item));
-	item->data = data;
+	item->value = value;
 	item->key = key;
 
 	//get the hash 
@@ -107,7 +108,7 @@ void display() {
 	for (i = 0; i<SIZE; i++) {
 
 		if (hashArray[i] != NULL)
-			printf(" (%d,%d)", hashArray[i]->key, hashArray[i]->data);
+			printf(" (%d,%d)", hashArray[i]->key, hashArray[i]->value);
 		else
 			printf(" ~~ ");
 	}
