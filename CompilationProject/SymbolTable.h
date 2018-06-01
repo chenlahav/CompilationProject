@@ -10,4 +10,4 @@ LinkList* SymbolTable[SIZE];
 void initSymbolTable();
 unsigned int hashCode(char* name);
 Symbol *lookup(char* key);
-void insertToSymbolTable(Symbol value);
+void insertToSymbolTable(Symbol *value);

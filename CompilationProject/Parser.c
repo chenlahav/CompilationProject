@@ -2,6 +2,12 @@
 #include "Parser.h"
 #include "string.h"
 #include "SymbolTable.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+
+Token* currentToken = NULL;
+Symbol* currentSymbol = NULL;
 
 char* get_token_name(int token_number)
 {
@@ -152,6 +158,7 @@ void parse_definitions_tag()
 void parse_definition()
 {
 	Token* t = next_token();
+	currentSymbol = (Symbol*)malloc(sizeof(Symbol));
 	switch (t->kind)
 	{
 		case TOKEN_ID:
@@ -159,6 +166,7 @@ void parse_definition()
 			back_token();
 			fprintf(yyout_syntactic, "DEFINITION -> VAR_DEFINITION\n");
 			parse_var_definition();
+			insertToSymbolTable(currentSymbol);
 			break;
 		}
 		case TOKEN_TYPE:
@@ -166,6 +174,7 @@ void parse_definition()
 			back_token();
 			fprintf(yyout_syntactic, "DEFINITION -> TYPE_DEFINITION\n");
 			parse_type_definition();
+			insertToSymbolTable(currentSymbol);
 			break;
 		}
 		default:
@@ -191,8 +200,15 @@ void parse_definition()
 
 void parse_var_definition()
 {
+	currentSymbol->Role = variable;
 	fprintf(yyout_syntactic, "VAR_DEFINITION -> id : VAR_DEFINITION'\n");
 	match(TOKEN_ID);
+	back_token();
+	currentToken = next_token();
+
+	//TODO validation check
+	currentSymbol->Name = currentToken->lexeme;
+
 	match(TOKEN_COLON);
 	parse_var_definition_tag();
 }
@@ -213,6 +229,9 @@ void parse_var_definition_tag()
 		case TOKEN_ID:
 		{
 			fprintf(yyout_syntactic, "VAR_DEFINITION' -> type_name\n");
+			back_token();
+			currentToken = next_token();
+			currentSymbol->Name = currentToken->lexeme;
 			break;
 		}
 		default:
@@ -238,10 +257,14 @@ void parse_var_definition_tag()
 
 void parse_type_definition() 
 {
+	currentSymbol->Role = user_defined_type;
 	fprintf(yyout_syntactic, "TYPE_DEFINITION -> type type_name is TYPE_INDICATOR\n");
 	
 	match(TOKEN_TYPE);
 	match(TOKEN_ID);
+	back_token();
+	currentToken = next_token();
+	currentSymbol->Name = currentToken->lexeme;
 	match(TOKEN_IS);
 	parse_type_indicator();
 }
@@ -298,16 +321,19 @@ void parse_type_indicator()
 void parse_basic_type()
 {
 	Token *t = next_token();
+	currentSymbol->Category = basic;
 	switch (t->kind)
 	{
 		case TOKEN_INTEGER:
 		{
 			fprintf(yyout_syntactic, "BASIC_TYPE -> integer\n");
+			currentSymbol->SubType = "integer";
 			break;
 		}
 		case TOKEN_REAL:
 		{
 			fprintf(yyout_syntactic, "BASIC_TYPE -> real\n");
+			currentSymbol->SubType = "real";
 			break;
 		}
 		default:
@@ -333,6 +359,7 @@ void parse_basic_type()
 
 void parse_array_type()
 {
+	currentSymbol->Category = array;
 	fprintf(yyout_syntactic, "ARRAY_TYPE -> array [SIZE] of BASIC_TYPE\n");
 	match(TOKEN_ARRAY);
 	match(TOKEN_OPEN_BRACKETS);
@@ -344,6 +371,7 @@ void parse_array_type()
 
 void parse_pointer_type()
 {
+	currentSymbol->Category = pointer;
 	fprintf(yyout_syntactic, "POINTER_TYPE -> ^POINTER_TYPE'\n");
 	match(TOKEN_POINTER);
 	parse_pointer_type_tag();
@@ -365,6 +393,9 @@ void parse_pointer_type_tag()
 		case TOKEN_ID:
 		{
 			fprintf(yyout_syntactic,"VAR_DEFINITION' -> type_name\n");
+			back_token();
+			currentToken = next_token();
+			currentSymbol->Type = currentToken->lexeme;
 			break;
 		}
 		default:
@@ -392,6 +423,9 @@ void parse_size()
 {
 	fprintf(yyout_syntactic, "SIZE -> int_num\n");
 	match(TOKEN_INT_NUM);
+	back_token();
+	currentToken = next_token();
+	currentSymbol->Size = currentToken->lexeme;
 }
 
 void parse_commands() 

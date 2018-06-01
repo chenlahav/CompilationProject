@@ -3,7 +3,7 @@
 
 typedef struct SymbolNode
 {
-	Symbol data;
+	Symbol *data;
 	struct SymbolNode *next;
 }SymbolNode;
 
@@ -14,7 +14,7 @@ typedef struct LinkList
 
 LinkList *initLinkList();
 
-SymbolNode *initSymbolNode(Symbol data);
+SymbolNode *initSymbolNode(Symbol *data);
 
-void insertToLinkList(LinkList* list, Symbol data);
+void insertToLinkList(LinkList* list, Symbol *data);
 

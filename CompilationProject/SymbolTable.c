@@ -36,7 +36,7 @@ Symbol *lookup(char* key) {
 	//move in array until an empty 
 	while (currentNode != NULL) 
 	{
-		if (currentNode->data.Name == key)
+		if (currentNode->data->Name == key)
 			return &(currentNode->data);
 
 		//go to next cell
@@ -46,12 +46,12 @@ Symbol *lookup(char* key) {
 	return NULL;
 }
 
-void insertToSymbolTable(Symbol value) 
+void insertToSymbolTable(Symbol *value) 
 {
 	//get the hash 
-	int hashIndex = hashCode(value.Name);
+	int hashIndex = hashCode(value->Name);
 
-	Symbol *lookupResult= lookup(value.Name);
+	Symbol *lookupResult= lookup(value->Name);
 	if (lookupResult == NULL)
 	{
 		insertToLinkList(SymbolTable[hashIndex], value);

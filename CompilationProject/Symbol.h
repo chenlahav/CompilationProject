@@ -21,6 +21,7 @@ typedef struct Symbol
 	eROLE Role;
 	char* Type;
 	eCATEGORY Category;
+	char* SubType;
 	int Size;
 
 }Symbol;
