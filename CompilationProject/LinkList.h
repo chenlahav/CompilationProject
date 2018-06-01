@@ -14,5 +14,7 @@ typedef struct LinkList
 
 LinkList *initLinkList();
 
+SymbolNode *initSymbolNode(Symbol data);
+
 void insertToLinkList(LinkList* list, Symbol data);
 
