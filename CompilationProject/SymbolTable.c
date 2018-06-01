@@ -3,17 +3,11 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "LinkList.h"
+#include "Symbol.h"
 
-#define SIZE 20
+#define SIZE 100
 
-struct Item {
-	LinkList value;
-	int key;
-};
-
-struct Item* hashArray[SIZE];
-struct Item* dummyItem;
-struct Item* item;
+LinkList* SymbolTable[SIZE];
 
 unsigned int hashCode(char* name)
 {
@@ -30,88 +24,43 @@ unsigned int hashCode(char* name)
 	return result;
 }
 
-//int hashCode(int key) {
-//	return key % SIZE;
-//}
-
-struct Item *search(int key) {
+struct Symbol *lookup(char* key) { 
 	//get the hash 
 	int hashIndex = hashCode(key);
+
+	Node* currentNode = SymbolTable[hashIndex]->head;
 
 	//move in array until an empty 
-	while (hashArray[hashIndex] != NULL) {
-
-		if (hashArray[hashIndex]->key == key)
-			return hashArray[hashIndex];
+	while (currentNode != NULL) 
+	{
+		if (currentNode->data.Name == key)
+			return &(currentNode->data);
 
 		//go to next cell
-		++hashIndex;
-
-		//wrap around the table
-		hashIndex %= SIZE;
+		currentNode = currentNode->next;
 	}
 
 	return NULL;
 }
 
-void insert(int key, Symbol value) {
-
-	struct Item *item = (struct Item*) malloc(sizeof(struct Item));
-	item->value = value;
-	item->key = key;
-
+void insertToSymbolTable(Symbol value) 
+{
 	//get the hash 
-	int hashIndex = hashCode(key);
+	int hashIndex = hashCode(value.Name);
 
-	//move in array until an empty or deleted cell
-	while (hashArray[hashIndex] != NULL && hashArray[hashIndex]->key != -1) {
-		//go to next cell
-		++hashIndex;
-
-		//wrap around the table
-		hashIndex %= SIZE;
+	if (SymbolTable[hashIndex] == NULL)
+	{
+		LinkList *link_list = (LinkList*) malloc(sizeof(LinkList));
+		SymbolTable[hashIndex] = link_list;
+		insertToLinkList(SymbolTable[hashIndex], value);
 	}
 
-	hashArray[hashIndex] = item;
-}
-
-struct Item* delete(struct Item* item) {
-	int key = item->key;
-
-	//get the hash 
-	int hashIndex = hashCode(key);
-
-	//move in array until an empty
-	while (hashArray[hashIndex] != NULL) {
-
-		if (hashArray[hashIndex]->key == key) {
-			struct Item* temp = hashArray[hashIndex];
-
-			//assign a dummy item at deleted position
-			hashArray[hashIndex] = dummyItem;
-			return temp;
+	else
+	{
+		Symbol *lookupResult= lookup(value.Name);
+		if (lookupResult == NULL)
+		{
+			insertToLinkList(SymbolTable[hashIndex], value);
 		}
-
-		//go to next cell
-		++hashIndex;
-
-		//wrap around the table
-		hashIndex %= SIZE;
 	}
-
-	return NULL;
-}
-
-void display() {
-	int i = 0;
-
-	for (i = 0; i<SIZE; i++) {
-
-		if (hashArray[i] != NULL)
-			printf(" (%d,%d)", hashArray[i]->key, hashArray[i]->value);
-		else
-			printf(" ~~ ");
-	}
-
-	printf("\n");
 }
