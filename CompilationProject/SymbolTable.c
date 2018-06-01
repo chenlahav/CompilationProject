@@ -5,20 +5,35 @@
 
 #define SIZE 20
 
-struct DataItem {
+struct Item {
 	int data;
 	int key;
 };
 
-struct DataItem* hashArray[SIZE];
-struct DataItem* dummyItem;
-struct DataItem* item;
+struct Item* hashArray[SIZE];
+struct Item* dummyItem;
+struct Item* item;
 
-int hashCode(int key) {
-	return key % SIZE;
+unsigned int hashCode(char* name)
+{
+	unsigned int result = 5381;
+	unsigned char *p;
+
+	p = (unsigned char *)name;
+
+	while (*p != '\0') {
+		result = (result << 5) + result + (unsigned int)tolower(*p);
+		++p;
+	}
+
+	return result;
 }
 
-struct DataItem *search(int key) {
+//int hashCode(int key) {
+//	return key % SIZE;
+//}
+
+struct Item *search(int key) {
 	//get the hash 
 	int hashIndex = hashCode(key);
 
@@ -40,7 +55,7 @@ struct DataItem *search(int key) {
 
 void insert(int key, int data) {
 
-	struct DataItem *item = (struct DataItem*) malloc(sizeof(struct DataItem));
+	struct Item *item = (struct Item*) malloc(sizeof(struct Item));
 	item->data = data;
 	item->key = key;
 
@@ -59,7 +74,7 @@ void insert(int key, int data) {
 	hashArray[hashIndex] = item;
 }
 
-struct DataItem* delete(struct DataItem* item) {
+struct Item* delete(struct Item* item) {
 	int key = item->key;
 
 	//get the hash 
@@ -69,7 +84,7 @@ struct DataItem* delete(struct DataItem* item) {
 	while (hashArray[hashIndex] != NULL) {
 
 		if (hashArray[hashIndex]->key == key) {
-			struct DataItem* temp = hashArray[hashIndex];
+			struct Item* temp = hashArray[hashIndex];
 
 			//assign a dummy item at deleted position
 			hashArray[hashIndex] = dummyItem;
