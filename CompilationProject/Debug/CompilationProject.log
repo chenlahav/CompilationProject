@@ -1,3 +1,8 @@
-﻿  SymbolTableList.c
-  CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.exe
-  CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.pdb (Full PDB)
+﻿  Parser.c
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(173): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(173): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(181): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(181): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(837): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
+  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
+  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)

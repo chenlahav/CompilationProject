@@ -3,15 +3,7 @@
 #include "SymbolTable.h"
 #include "Symbol.h"
 
-LinkList* CreateSymbolTable()
-{
-	LinkList* symbolTable[SIZE];
-	initSymbolTable(symbolTable);
-
-	return symbolTable;
-}
-
-void initSymbolTable(LinkList* symbolTable[])
+void initSymbolTable(SymbolTable symbolTable)
 {
 	int i;
 	for (i = 0; i < SIZE; i++)
@@ -53,11 +45,11 @@ Symbol *lookup(LinkList* symbolTable[], char* key) {
 	return NULL;
 }
 
-void insertToSymbolTable(LinkList* symbolTable[], Symbol *value)
+void insertToSymbolTable(SymbolTable symbolTable, Symbol *value)
 {
 	//get the hash 
 	int hashIndex = hashCode(value->Name);
-	Symbol *lookupResult= lookup(symbolTable, value->Name);
+	Symbol *lookupResult = lookup(symbolTable, value->Name);
 	if (lookupResult == NULL)
 	{
 		insertToLinkList(symbolTable[hashIndex], value);

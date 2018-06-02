@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 Token* currentToken = NULL;
-SymbolTablesList* currentSymbolTablesList = NULL;
+SymbolTablesList* symbolTablesList;
 
 char* get_token_name(int token_number)
 {
@@ -63,7 +63,7 @@ char* get_token_name(int token_number)
 
 void parse_program()
 {
-	currentSymbolTablesList = InitSymbolTablesList();
+	symbolTablesList = InitSymbolTablesList();
 	fprintf(yyout_syntactic, "PROGRAM -> BLOCK\n");
 	parse_block();
 }
@@ -72,14 +72,16 @@ void parse_block()
 {
 	fprintf(yyout_syntactic, "BLOCK -> block DEFINITIONS; begin COMMANDS; end\n");
 	match(TOKEN_BLOCK);
-	push(CreateSymbolTable(), currentSymbolTablesList);
+	SymbolTable symbolTable;
+	initSymbolTable(symbolTable);
+	push(symbolTable, symbolTablesList);
 	parse_definitions();
 	match(TOKEN_SEMICOLON);
 	match(TOKEN_BEGIN);
 	parse_commands();
 	match(TOKEN_SEMICOLON);
 	match(TOKEN_END);
-	pop(currentSymbolTablesList);
+	pop(symbolTablesList);
 }
 
 void parse_definitions()
@@ -168,7 +170,7 @@ void parse_definition()
 			back_token();
 			fprintf(yyout_syntactic, "DEFINITION -> VAR_DEFINITION\n");
 			parse_var_definition();
-			insertToSymbolTable(currentSymbolTablesList->Head,currentSymbol);
+			insertToSymbolTable(symbolTablesList->Head->symbolTable,currentSymbol);
 			break;
 		}
 		case TOKEN_TYPE:
@@ -176,7 +178,7 @@ void parse_definition()
 			back_token();
 			fprintf(yyout_syntactic, "DEFINITION -> TYPE_DEFINITION\n");
 			parse_type_definition();
-			insertToSymbolTable(currentSymbolTablesList->Head, currentSymbol);
+			insertToSymbolTable(symbolTablesList->Head->symbolTable, currentSymbol);
 			break;
 		}
 		default:

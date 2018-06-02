@@ -3,7 +3,7 @@
 
 SymbolNode *initSymbolNode(Symbol *data)
 {
-	SymbolNode *new_node = (Symbol*)malloc(sizeof(SymbolNode));
+	SymbolNode *new_node = (SymbolNode*)malloc(sizeof(SymbolNode));
 	new_node->data = data;
 	new_node->next = NULL;
 	
