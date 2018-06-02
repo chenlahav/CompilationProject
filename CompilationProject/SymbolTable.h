@@ -9,5 +9,5 @@ typedef LinkList* SymbolTable[SIZE];
 
 void initSymbolTable(SymbolTable symbolTable);
 unsigned int hashCode(char* name);
-Symbol *lookup(LinkList* symbolTable[], char* key);
+Symbol *lookup(SymbolTable symbolTable, char* key);
 void insertToSymbolTable(SymbolTable symbolTable,  Symbol *value);

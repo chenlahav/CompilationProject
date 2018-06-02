@@ -27,7 +27,7 @@ unsigned int hashCode(char* name)
 	return result % SIZE;
 }
 
-Symbol *lookup(LinkList* symbolTable[], char* key) { 
+Symbol *lookup(SymbolTable symbolTable, char* key) {
 	//get the hash 
 	int hashIndex = hashCode(key);
 	SymbolNode* currentNode = symbolTable[hashIndex]->head;
@@ -35,8 +35,10 @@ Symbol *lookup(LinkList* symbolTable[], char* key) {
 	//move in array until an empty 
 	while (currentNode != NULL) 
 	{
-		if (currentNode->data->Name == key)
-			return &(currentNode->data);
+		if (strcmp(currentNode->data->Name, key) == 0)
+		{
+			return currentNode->data;
+		}
 
 		//go to next cell
 		currentNode = currentNode->next;

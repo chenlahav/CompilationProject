@@ -1934,10 +1934,12 @@ void main(int argc, char* argv[])
 	yyin = fopen("C:\\temp\\test1.txt","r");
 	yyout_lex = fopen("C:\\temp\\test1_308334309_203698808_lex.txt","w");
 	yyout_syntactic = fopen("C:\\temp\\test1_308334309_203698808_syntactic.txt", "w");
+	yyout_semantic = fopen("C:\\temp\\test1_308334309_203698808_semantic.txt", "w");
 	parse_program();
 	fclose(yyin);
 	fclose(yyout_lex);
 	fclose(yyout_syntactic);
+	fclose(yyout_semantic);
 
 	YY_lex_RESTART();
 	line_number = 1;
@@ -1946,10 +1948,12 @@ void main(int argc, char* argv[])
 	yyin = fopen("C:\\temp\\test2.txt","r");
 	yyout_lex = fopen("C:\\temp\\test2_308334309_203698808_lex.txt","w");
 	yyout_syntactic = fopen("C:\\temp\\test2_308334309_203698808_syntactic.txt", "w");
+	yyout_semantic = fopen("C:\\temp\\test2_308334309_203698808_semantic.txt", "w");
 	parse_program();
 	fclose(yyin);
 	fclose(yyout_lex);
 	fclose(yyout_syntactic);
+	fclose(yyout_semantic);
 }
 
 void insertAndPrintToken(eTOKENS kind, char* lexeme, int line_number)
