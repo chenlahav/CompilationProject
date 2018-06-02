@@ -17,6 +17,6 @@ typedef struct SymbolTablesList
 
 SymbolTableNode* InitSymbolTableNode(LinkList* symbolTable);
 SymbolTablesList* InitSymbolTablesList();
-SymbolTableNode* Pop(SymbolTablesList* symbolTableList);
+void Pop(SymbolTablesList* symbolTableList);
 void push(LinkList* symbolTable, SymbolTablesList* symbolTableList);
-Symbol Find(SymbolTablesList* symbolTableList, char* Key);
+Symbol* Find(SymbolTablesList* symbolTableList, char* Key);

@@ -18,16 +18,17 @@ SymbolTablesList* InitSymbolTablesList()
 	list->Head = NULL;
 }
 
-SymbolTableNode* Pop(SymbolTablesList* symbolTableList)
+void Pop(SymbolTablesList* symbolTableList)
 {
 	if (symbolTableList->Head == NULL)
 	{
-		return NULL;
+		return;
 	}
 
-	SymbolTableNode* symbolTableNodeToRetun = symbolTableList->Head;
+	SymbolTableNode* symbolTableNodeToDelete = symbolTableList->Head;
 	symbolTableList->Head = symbolTableList->Head->Next;
-	return symbolTableNodeToRetun;
+
+	free (symbolTableNodeToDelete);
 }
 
 void push(LinkList* symbolTable, SymbolTablesList* symbolTableList)
@@ -37,13 +38,20 @@ void push(LinkList* symbolTable, SymbolTablesList* symbolTableList)
 	symbolTableList->Head->Next = currentHead;
 }
 
-Symbol Find(SymbolTablesList* symbolTableList, char* Key)
+Symbol* Find(SymbolTablesList* symbolTableList, char* Key)
 {
+	Symbol* symbolToReturn;
+
 	SymbolTableNode* currentNode = symbolTableList->Head;
 	while (currentNode != null)
 	{
-		lookup()
-		currentNode->SymbolTable
+		symbolToReturn = lookup(currentNode->SymbolTable, Key);
+		if (symbolToReturn != null)
+		{
+			return symbolToReturn;
+		}
 		currentNode = currentNode->Next;
 	}
+
+	return null;
 }

@@ -1,3 +1,11 @@
 ﻿  SymbolTableList.c
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(8): warning C4013: 'malloc' undefined; assuming extern returning int
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(31): warning C4013: 'free' undefined; assuming extern returning int
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(37): warning C4133: 'function': incompatible types - from 'LinkList *' to 'Symbol *'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(37): warning C4133: '=': incompatible types - from 'SymbolNode *' to 'SymbolTableNode *'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(46): warning C4047: '!=': 'SymbolTableNode *' differs in levels of indirection from 'int'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(49): warning C4047: '!=': 'Symbol *' differs in levels of indirection from 'int'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(56): warning C4047: 'return': 'Symbol *' differs in levels of indirection from 'int'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(19): warning C4716: 'InitSymbolTablesList': must return a value
   CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.exe
   CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.pdb (Full PDB)
