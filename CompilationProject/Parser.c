@@ -175,7 +175,7 @@ void parse_definition()
 			back_token();
 			fprintf(yyout_syntactic, "DEFINITION -> VAR_DEFINITION\n");
 			parse_var_definition();
-			insertToSymbolTable(currentSymbol);
+			insertToSymbolTable(SymbolTable,currentSymbol);
 			break;
 		}
 		case TOKEN_TYPE:
@@ -183,7 +183,7 @@ void parse_definition()
 			back_token();
 			fprintf(yyout_syntactic, "DEFINITION -> TYPE_DEFINITION\n");
 			parse_type_definition();
-			insertToSymbolTable(currentSymbol);
+			insertToSymbolTable(SymbolTable, currentSymbol);
 			break;
 		}
 		default:

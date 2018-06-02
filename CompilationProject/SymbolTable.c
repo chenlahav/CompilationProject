@@ -27,11 +27,11 @@ unsigned int hashCode(char* name)
 	return result % SIZE;
 }
 
-Symbol *lookup(char* key) { 
+Symbol *lookup(LinkList** symbolTable, char* key) { 
 	//get the hash 
 	int hashIndex = hashCode(key);
 
-	SymbolNode* currentNode = SymbolTable[hashIndex]->head;
+	SymbolNode* currentNode = symbolTable[hashIndex]->head;
 
 	//move in array until an empty 
 	while (currentNode != NULL) 
@@ -46,14 +46,14 @@ Symbol *lookup(char* key) {
 	return NULL;
 }
 
-void insertToSymbolTable(Symbol *value) 
+void insertToSymbolTable(LinkList** symbolTable, Symbol *value)
 {
 	//get the hash 
 	int hashIndex = hashCode(value->Name);
 
-	Symbol *lookupResult= lookup(value->Name);
+	Symbol *lookupResult= lookup(symbolTable, value->Name);
 	if (lookupResult == NULL)
 	{
-		insertToLinkList(SymbolTable[hashIndex], value);
+		insertToLinkList(symbolTable[hashIndex], value);
 	}
 }
