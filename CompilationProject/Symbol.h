@@ -26,3 +26,7 @@ typedef struct Symbol
 	int Size;
 
 }Symbol;
+
+Symbol* currentSymbol;
+
+void create_new_symbol();

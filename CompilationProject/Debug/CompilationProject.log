@@ -1,11 +1,19 @@
 ﻿  SymbolTableList.c
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(8): warning C4013: 'malloc' undefined; assuming extern returning int
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(31): warning C4013: 'free' undefined; assuming extern returning int
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(37): warning C4133: 'function': incompatible types - from 'LinkList *' to 'Symbol *'
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(37): warning C4133: '=': incompatible types - from 'SymbolNode *' to 'SymbolTableNode *'
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(46): warning C4047: '!=': 'SymbolTableNode *' differs in levels of indirection from 'int'
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(49): warning C4047: '!=': 'Symbol *' differs in levels of indirection from 'int'
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(56): warning C4047: 'return': 'Symbol *' differs in levels of indirection from 'int'
-c:\users\snirkol\source\repos\compilationproject\compilationproject\symboltablelist.c(19): warning C4716: 'InitSymbolTablesList': must return a value
-  CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.exe
-  CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.pdb (Full PDB)
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltablelist.c(7): warning C4013: 'malloc' undefined; assuming extern returning int
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltablelist.c(30): warning C4013: 'free' undefined; assuming extern returning int
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltablelist.c(36): warning C4047: 'function': 'LinkList *' differs in levels of indirection from 'LinkList **'
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltablelist.c(36): warning C4024: 'InitSymbolTableNode': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltablelist.c(45): warning C4047: '!=': 'SymbolTableNode *' differs in levels of indirection from 'int'
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltablelist.c(48): warning C4047: '!=': 'Symbol *' differs in levels of indirection from 'int'
+c:\users\chen\documents\github\compilationproject\compilationproject\symboltablelist.c(55): warning C4047: 'return': 'Symbol *' differs in levels of indirection from 'int'
+  Parser.c
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(75): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'LinkList *'
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(75): warning C4024: 'push': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(171): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTableNode *'
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(171): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(179): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTableNode *'
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(179): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(835): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
+  Generating Code...
+  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
+  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)

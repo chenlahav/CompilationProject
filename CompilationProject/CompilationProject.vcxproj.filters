@@ -33,6 +33,9 @@
     <ClCompile Include="SymbolTableList.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Symbol.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="information.txt">

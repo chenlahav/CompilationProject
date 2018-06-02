@@ -64,6 +64,7 @@
     <ClCompile Include="lex.yy.c" />
     <ClCompile Include="LinkList.c" />
     <ClCompile Include="Parser.c" />
+    <ClCompile Include="Symbol.c" />
     <ClCompile Include="SymbolTable.c" />
     <ClCompile Include="SymbolTableList.c" />
     <ClCompile Include="Token.c" />
