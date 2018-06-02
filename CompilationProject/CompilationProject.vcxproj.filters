@@ -30,6 +30,9 @@
     <ClCompile Include="LinkList.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SymbolTableList.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="information.txt">
@@ -53,6 +56,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SymbolTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SymbolTablesList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
