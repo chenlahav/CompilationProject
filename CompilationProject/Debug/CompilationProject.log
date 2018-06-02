@@ -1,2 +1,4 @@
-﻿  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
+﻿  Parser.c
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(842): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
+  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)

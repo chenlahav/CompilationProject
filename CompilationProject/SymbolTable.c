@@ -46,14 +46,14 @@ Symbol *lookup(LinkList** symbolTable, char* key) {
 	return NULL;
 }
 
-void insertToSymbolTable(Symbol *value) 
+void insertToSymbolTable(LinkList** symbolTable, Symbol *value)
 {
 	//get the hash 
 	int hashIndex = hashCode(value->Name);
 
-	Symbol *lookupResult= lookup(value->Name);
+	Symbol *lookupResult= lookup(symbolTable, value->Name);
 	if (lookupResult == NULL)
 	{
-		insertToLinkList(SymbolTable[hashIndex], value);
+		insertToLinkList(symbolTable[hashIndex], value);
 	}
 }
