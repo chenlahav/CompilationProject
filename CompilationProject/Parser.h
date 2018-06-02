@@ -1,5 +1,6 @@
 #include "Token.h"
 
+void create_new_symbol();
 void parse_program();
 void parse_block();
 void parse_definitions();

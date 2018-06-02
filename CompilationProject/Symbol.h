@@ -9,6 +9,7 @@ typedef enum eROLE
 
 typedef enum eCATEGORY
 {
+	null,
 	basic,
 	array,
 	pointer

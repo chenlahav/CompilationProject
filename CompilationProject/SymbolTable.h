@@ -3,7 +3,7 @@
 #include "LinkList.h"
 #include "Symbol.h"
 
-#define SIZE 100
+#define SIZE 10
 
 LinkList* SymbolTable[SIZE];
 
