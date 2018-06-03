@@ -734,7 +734,7 @@ void parse_command_tag()
 			if ((symbolExpression->Type != "undefined")&&(symbol_receiver_tag->Type != "undefined")
 				&&(symbolExpression->Type != symbol_receiver_tag->Type))
 			{
-				fprintf(yyout_semantic, "(line %d) no matching types", t->lineNumber);
+				fprintf(yyout_semantic, "(line %d) no matching types\n", t->lineNumber);
 			}
 			break;
 		}
@@ -770,7 +770,7 @@ void parse_command_tag()
 					if ((symbolExpression->Type != "undefined") && (symbol_receiver_tag->Type != "undefined")
 						&& (symbolExpression->Type != symbol_receiver_tag->Type))
 					{
-						fprintf(yyout_semantic, "(line %d) no matching types", t->lineNumber);
+						fprintf(yyout_semantic, "(line %d) no matching types\n", t->lineNumber);
 					}
 
 					break;
@@ -867,7 +867,7 @@ Symbol* parse_receiver_tag()
 			if ((symbolExpression->Type != "undefined") && (typeSymbol->Type != "undefined")
 				&& (symbolExpression->Type != "integer"))
 			{
-				fprintf(yyout_semantic, "(line %d) index must be integer", t->lineNumber);
+				fprintf(yyout_semantic, "(line %d) index must be integer\n", t->lineNumber);
 			}
 			symbolToReturn->Category = typeSymbol->Category;
 			symbolToReturn->Type = typeSymbol->Type;
