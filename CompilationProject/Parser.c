@@ -1047,7 +1047,8 @@ Symbol* parse_expression_tag()
 		case TOKEN_POWER:
 		{
 			fprintf(yyout_syntactic, "EXPRESSION' -> ar_op EXPRESSION\n");
-			parse_expression();
+			Symbol* symbol_expression = parse_expression();
+			symbolToReturn->Type = symbol_expression->Type;
 			break;
 		}
 		case TOKEN_OPEN_BRACKETS:
