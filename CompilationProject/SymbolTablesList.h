@@ -4,7 +4,7 @@
 
 typedef struct SymbolTableNode
 {
-	LinkList* SymbolTable[SIZE];
+	SymbolTable* symbolTable;
 	struct SymbolTableNode* Next;
 }SymbolTableNode;
 
@@ -15,8 +15,8 @@ typedef struct SymbolTablesList
 }SymbolTablesList;
 
 
-SymbolTableNode* InitSymbolTableNode(LinkList* symbolTable);
+SymbolTableNode* InitSymbolTableNode(SymbolTable symbolTable);
 SymbolTablesList* InitSymbolTablesList();
 void pop(SymbolTablesList* symbolTableList);
-void push(LinkList* symbolTable[SIZE], SymbolTablesList* symbolTableList);
+void push(SymbolTable symbolTable, SymbolTablesList* symbolTableList);
 Symbol* Find(SymbolTablesList* symbolTableList, char* Key);

@@ -6,6 +6,8 @@ FILE *yyin, *yyout_lex;
 
 FILE *yyout_syntactic;
 
+FILE *yyout_semantic;
+
 typedef enum eTOKENS
 {
 	TOKEN_ADDITION,

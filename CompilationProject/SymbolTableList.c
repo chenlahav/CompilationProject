@@ -2,10 +2,10 @@
 #include <stdio.h>
 
 
-SymbolTableNode* InitSymbolTableNode(LinkList *symbolTable)
+SymbolTableNode* InitSymbolTableNode(SymbolTable symbolTable)
 {
 	SymbolTableNode* new_node = (SymbolTableNode*)malloc(sizeof(SymbolTableNode));
-	*new_node->SymbolTable = symbolTable;
+	new_node->symbolTable = symbolTable;
 	new_node->Next = NULL;
 	return new_node;
 }
@@ -30,7 +30,7 @@ void pop(SymbolTablesList* symbolTableList)
 	free (symbolTableNodeToDelete);
 }
 
-void push(LinkList* symbolTable[SIZE], SymbolTablesList* symbolTableList)
+void push(SymbolTable symbolTable, SymbolTablesList* symbolTableList)
 {
 	SymbolTableNode* currentHead = symbolTableList->Head;
 	symbolTableList->Head = InitSymbolTableNode(symbolTable);
@@ -44,7 +44,7 @@ Symbol* Find(SymbolTablesList* symbolTableList, char* Key)
 	SymbolTableNode* currentNode = symbolTableList->Head;
 	while (currentNode != null)
 	{
-		symbolToReturn = lookup(currentNode->SymbolTable, Key);
+		symbolToReturn = lookup(currentNode->symbolTable, Key);
 		if (symbolToReturn != null)
 		{
 			return symbolToReturn;
