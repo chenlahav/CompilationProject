@@ -736,6 +736,7 @@ void parse_command_tag()
 			{
 				fprintf(yyout_semantic, "(line %d) no matching types\n", t->lineNumber);
 			}
+			
 			break;
 		}
 		case TOKEN_ASSIGNMENT:
@@ -771,6 +772,17 @@ void parse_command_tag()
 						&& (symbolExpression->Type != symbol_receiver_tag->Type))
 					{
 						fprintf(yyout_semantic, "(line %d) no matching types\n", t->lineNumber);
+					}
+					else if ((symbolExpression->Category == pointer) || (symbol_receiver_tag->Category == pointer))
+					{
+						if ((symbolExpression->Category == pointer) && (symbol_receiver_tag->Category == pointer))
+						{
+
+						}
+						else
+						{
+							fprintf(yyout_semantic, "(line %d) no matching category \n", t->lineNumber);
+						}
 					}
 
 					break;
@@ -891,6 +903,7 @@ Symbol* parse_receiver_tag()
 		case TOKEN_ASSIGNMENT:
 		{
 			fprintf(yyout_syntactic, "RECEIVER' -> e\n");
+			symbolToReturn->Category = typeSymbol->Category;
 			symbolToReturn->Type = typeSymbol->Type;
 			back_token();
 			break;
@@ -950,6 +963,24 @@ Symbol* parse_expression()
 		{
 			fprintf(yyout_syntactic, "EXPRESSION -> &id\n");
 			match(TOKEN_ID);
+			back_token();
+			Token* token_id = next_token();
+			Symbol* idSymbol = Find(symbolTablesList, token_id->lexeme);
+			if (idSymbol == NULL)
+			{
+				fprintf(yyout_semantic, "(line %d) variable '%s' is not defined\n", token_id->lineNumber, token_id->lexeme);
+				symbol->Category = null;
+				symbol->Name = "undefined";
+				symbol->Type = "undefined";
+				symbol->SubType = "undefined";
+				return symbol;
+			}
+			else 
+			{
+				symbol->Type = idSymbol->Type;
+				symbol->Category = pointer;
+			}
+
 			break;
 		}
 		case TOKEN_SIZE_OF:
@@ -1110,7 +1141,7 @@ Symbol* get_type_of_symbol(Symbol* idSymbol)
 			}
 			else
 			{
-				typeSymbol->Type = "undefined type";
+				typeSymbol->Type = "undefined";
 			}
 		}
 	}
