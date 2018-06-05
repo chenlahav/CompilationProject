@@ -177,7 +177,7 @@ void parse_definition()
 			}
 			else
 			{
-				fprintf(yyout_semantic, "(Line %d) Type %s not defined\n", currentToken->lineNumber, currentToken->lexeme);
+				fprintf(yyout_semantic, "(Line %d) Type %s is not defined\n", currentToken->lineNumber, currentToken->lexeme);
 			}
 			break;
 		}
@@ -193,7 +193,7 @@ void parse_definition()
 			}
 			else
 			{
-				fprintf(yyout_semantic, "(Line %d) Type %s not defined\n", currentToken->lineNumber, currentToken->lexeme);
+				fprintf(yyout_semantic, "(Line %d) Type %s is not defined\n", currentToken->lineNumber, currentToken->lexeme);
 			}
 
 			break;
@@ -734,7 +734,7 @@ void parse_command_tag()
 			if ((symbolExpression->Type != "undefined")&&(symbol_receiver_tag->Type != "undefined")
 				&&(symbolExpression->Type != symbol_receiver_tag->Type))
 			{
-				fprintf(yyout_semantic, "(line %d) no matching types\n", t->lineNumber);
+				fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", t->lineNumber);
 			}
 			
 			break;
@@ -771,7 +771,7 @@ void parse_command_tag()
 					if ((symbolExpression->Type != "undefined") && (symbol_receiver_tag->Type != "undefined")
 						&& (symbolExpression->Type != symbol_receiver_tag->Type))
 					{
-						fprintf(yyout_semantic, "(line %d) no matching types\n", t->lineNumber);
+						fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", t->lineNumber);
 					}
 					else if ((symbolExpression->Category == pointer) || (symbol_receiver_tag->Category == pointer))
 					{
@@ -851,7 +851,7 @@ Symbol* parse_receiver_tag()
 	Symbol* symbolToReturn = (Symbol*)malloc(sizeof(Symbol));
 	if (idSymbol == NULL)
 	{
-		fprintf(yyout_semantic, "(line %d) variable '%s' not defined\n", token_id->lineNumber, token_id->lexeme);
+		fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
 		symbolToReturn->Category = null;
 		symbolToReturn->Name = "undefined";
 		symbolToReturn->Type = "undefined";
@@ -867,7 +867,7 @@ Symbol* parse_receiver_tag()
 		{
 			if (typeSymbol->Category != array)
 			{
-				fprintf(yyout_semantic, "(line %d) variable '%s' is not array\n", t->lineNumber, token_id->lexeme);
+				fprintf(yyout_semantic, "(line %d) variable '%s' is not of an array type\n", t->lineNumber, token_id->lexeme);
 				symbolToReturn->Category = null;
 				symbolToReturn->Name = "undefined";
 				symbolToReturn->Type = "undefined";
@@ -879,7 +879,7 @@ Symbol* parse_receiver_tag()
 			if ((symbolExpression->Type != "undefined") && (typeSymbol->Type != "undefined")
 				&& (symbolExpression->Type != "integer"))
 			{
-				fprintf(yyout_semantic, "(line %d) index must be integer\n", t->lineNumber);
+				fprintf(yyout_semantic, "(line %d) array index is not integer\n", t->lineNumber);
 			}
 			symbolToReturn->Category = typeSymbol->Category;
 			symbolToReturn->Type = typeSymbol->Type;
@@ -968,7 +968,7 @@ Symbol* parse_expression()
 			Symbol* idSymbol = Find(symbolTablesList, token_id->lexeme);
 			if (idSymbol == NULL)
 			{
-				fprintf(yyout_semantic, "(line %d) variable '%s' is not defined\n", token_id->lineNumber, token_id->lexeme);
+				fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
 				symbol->Category = null;
 				symbol->Name = "undefined";
 				symbol->Type = "undefined";
@@ -1027,7 +1027,7 @@ Symbol* parse_expression_tag()
 	Symbol* symbolToReturn = (Symbol*)malloc(sizeof(Symbol));
 	if (idSymbol == NULL)
 	{
-		fprintf(yyout_semantic, "(line %d) variable '%s' not defined\n", token_id->lineNumber, token_id->lexeme);
+		fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
 		symbolToReturn->Category = null;
 		symbolToReturn->Name = "undefined";
 		symbolToReturn->Type = "undefined";
