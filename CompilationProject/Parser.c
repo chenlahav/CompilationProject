@@ -572,7 +572,27 @@ void parse_command()
 		case TOKEN_ID:
 		{
 			fprintf(yyout_syntactic, "COMMAND -> id  COMMAND'\n");
-			parse_command_tag();
+
+			back_token();
+			Token* token_id = next_token();
+			Symbol* symbol_id = Find(symbolTablesList, token_id->lexeme);
+			Symbol* symbol_command_tag = parse_command_tag();
+
+			if (symbol_id == NULL)
+			{
+				fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
+			}
+			else
+			{
+				Symbol* symbol_type = get_type_of_symbol(symbol_id);
+
+				if (!((symbol_type->Category == pointer)&&(symbol_type->Type == symbol_command_tag->Type))
+					&&(symbol_command_tag->Type  != "undefined"))
+				{
+					fprintf(yyout_semantic, "(line %d) variable '%s' is not pointer of type %s\n",
+						t->lineNumber, token_id->lexeme, symbol_command_tag->Type);
+				}
+			}
 			break;
 		}
 		case TOKEN_WHEN:
@@ -717,8 +737,14 @@ void parse_command()
 	}
 }
 
-void parse_command_tag()
+Symbol* parse_command_tag()
 {
+	Symbol* symbolToReturn = (Symbol*) malloc(sizeof(Symbol));
+	symbolToReturn->Category = null;
+	symbolToReturn->Name = "undefined";
+	symbolToReturn->Type = "undefined";
+	symbolToReturn->SubType = "undefined";
+
 	Token* t = next_token();
 	switch (t->kind)
 	{
@@ -751,8 +777,43 @@ void parse_command_tag()
 					match(TOKEN_SIZE_OF);
 					match(TOKEN_OPEN_PARENTHESES);
 					match(TOKEN_ID);
+
+					back_token();
+					Token* token_id = next_token();
+					Symbol* size_of_id = Find(symbolTablesList, token_id->lexeme);
+					if (size_of_id == NULL)
+					{
+						if (strcmp(token_id->lexeme, "integer") == 0)
+						{
+							symbolToReturn->Type = "integer";
+						}
+						else if(strcmp(token_id->lexeme, "real") == 0)
+						{
+							symbolToReturn->Type = "real";
+						}
+						else
+						{
+							//symbol not found in the the table and the type is not integer or real
+							fprintf(yyout_semantic, "(line %d) type '%s' is not defined\n",
+								token_id->lineNumber, token_id->lexeme);
+						}
+						//return symbolToReturn;
+					}
+					else if (size_of_id->Role == variable)
+					{
+						fprintf(yyout_semantic, "(line %d) '%s' is not a type name\n", token_id->lineNumber, token_id->lexeme);
+						//return symbolToReturn;
+					}
+					else
+					{
+						Symbol* symbol_type = get_type_of_symbol(size_of_id);
+						symbolToReturn->Type = symbol_type->Type;
+						symbolToReturn->Category = symbol_type->Category;
+					}
+
 					match(TOKEN_CLOSE_PARENTHESES);
 					match(TOKEN_CLOSE_PARENTHESES);
+					return symbolToReturn;
 					break;
 				}
 				case TOKEN_ID:
@@ -832,6 +893,7 @@ void parse_command_tag()
 			break;
 		}
 	}
+	return symbolToReturn;
 }
 
 void parse_receiver()

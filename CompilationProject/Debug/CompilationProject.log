@@ -1,14 +1,17 @@
 ﻿  Parser.c
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(176): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(176): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(192): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(192): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(921): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(923): warning C4033: 'parse_receiver_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1009): warning C4033: 'parse_expression' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1092): warning C4033: 'parse_expression_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(933): warning C4715: 'parse_receiver_tag': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1103): warning C4715: 'parse_expression_tag': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1020): warning C4715: 'parse_expression': not all control paths return a value
-  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
-  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(176): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(176): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(192): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(192): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(863): warning C4033: 'parse_command_tag' must return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(887): warning C4033: 'parse_command_tag' must return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(983): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(985): warning C4033: 'parse_receiver_tag' must return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(1071): warning C4033: 'parse_expression' must return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(1154): warning C4033: 'parse_expression_tag' must return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(995): warning C4715: 'parse_receiver_tag': not all control paths return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(897): warning C4715: 'parse_command_tag': not all control paths return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(1082): warning C4715: 'parse_expression': not all control paths return a value
+c:\users\snirkol\source\repos\compilationproject\compilationproject\parser.c(1165): warning C4715: 'parse_expression_tag': not all control paths return a value
+  CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.exe
+  CompilationProject.vcxproj -> C:\Users\snirkol\Source\Repos\CompilationProject\Debug\CompilationProject.pdb (Full PDB)

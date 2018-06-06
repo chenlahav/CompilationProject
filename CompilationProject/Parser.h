@@ -20,7 +20,7 @@ void parse_size();
 void parse_commands();
 void parse_commands_tag();
 void parse_command();
-void parse_command_tag();
+Symbol* parse_command_tag();
 void parse_receiver();
 Symbol* parse_receiver_tag();
 Symbol* parse_expression();
