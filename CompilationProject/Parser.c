@@ -571,8 +571,26 @@ void parse_command()
 	{
 		case TOKEN_ID:
 		{
-			fprintf(yyout_syntactic, "COMMAND -> id  COMMAND'\n");
-			parse_command_tag();
+			fprintf(yyout_syntactic, "COMMAND -> id COMMAND'\n");
+			back_token();
+			Token* token_id = next_token();
+			Symbol* idSymbol = Find(symbolTablesList, token_id->lexeme);
+			if (idSymbol == NULL)
+			{
+				fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
+			}
+			
+			Symbol* typeSymbol = get_type_of_symbol(idSymbol);
+
+			Symbol* symbol_command_tag = parse_command_tag();
+
+			if (symbol_command_tag->Type != "undefined")
+			{
+				if (!(typeSymbol->Category == pointer) && (typeSymbol->Type == symbol_command_tag->Type))
+				{
+					fprintf(yyout_semantic, "(line %d) %s is not a pointer of %s", token_id->lineNumber, token_id->lexeme, symbol_command_tag->Type);
+				}
+			}
 			break;
 		}
 		case TOKEN_WHEN:
@@ -717,9 +735,12 @@ void parse_command()
 	}
 }
 
-void parse_command_tag()
+Symbol* parse_command_tag()
 {
 	Token* t = next_token();
+	Symbol* symbolToReturn = (Symbol*)malloc(sizeof(Symbol));
+	symbolToReturn->Category = null;
+	//symbolToReturn->Type = "undefined";
 	switch (t->kind)
 	{
 		case TOKEN_OPEN_BRACKETS:
@@ -751,6 +772,26 @@ void parse_command_tag()
 					match(TOKEN_SIZE_OF);
 					match(TOKEN_OPEN_PARENTHESES);
 					match(TOKEN_ID);
+					back_token();
+					Token* id_token = next_token();
+					Symbol* idSymbol = Find(symbolTablesList, id_token->lexeme);
+					if ((idSymbol == NULL) && (id_token->lexeme != "integer" || id_token->lexeme != "real"))
+					{
+						fprintf(yyout_semantic, "(Line %d) Type %s is not defined\n", currentToken->lineNumber, currentToken->lexeme);
+					}
+					else if (id_token->lexeme == "integer")
+					{
+						symbolToReturn->Type = "integer";
+					}
+					else if (id_token->lexeme == "real")
+					{
+						symbolToReturn->Type = "real";
+					}
+					else
+					{
+						Symbol* typeSymbol = get_type_of_symbol(idSymbol);
+						symbolToReturn->Type = typeSymbol->Type;
+					} 
 					match(TOKEN_CLOSE_PARENTHESES);
 					match(TOKEN_CLOSE_PARENTHESES);
 					break;
@@ -775,13 +816,9 @@ void parse_command_tag()
 					}
 					else if ((symbolExpression->Category == pointer) || (symbol_receiver_tag->Category == pointer))
 					{
-						if ((symbolExpression->Category == pointer) && (symbol_receiver_tag->Category == pointer))
+						if (!((symbolExpression->Category == pointer) && (symbol_receiver_tag->Category == pointer)))
 						{
-
-						}
-						else
-						{
-							fprintf(yyout_semantic, "(line %d) no matching category \n", t->lineNumber);
+							fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", t->lineNumber);
 						}
 					}
 
@@ -832,6 +869,7 @@ void parse_command_tag()
 			break;
 		}
 	}
+	return symbolToReturn;
 }
 
 void parse_receiver()
@@ -1120,8 +1158,11 @@ void parse_print_error(eTOKENS expected_tokens_kinds[], eTOKENS actual_token_kin
 Symbol* get_type_of_symbol(Symbol* idSymbol)
 {
 	Symbol* typeSymbol = (Symbol*)malloc(sizeof(Symbol));
-
-	if (idSymbol->Role == user_defined_type)
+	if (idSymbol == NULL)
+	{
+		typeSymbol->Type = "undefined";
+	}
+	else if (idSymbol->Role == user_defined_type)
 	{
 		typeSymbol->Category = idSymbol->Category;
 		typeSymbol->Type = idSymbol->SubType;
