@@ -54,3 +54,22 @@ Symbol* Find(SymbolTablesList* symbolTableList, char* Key)
 
 	return null;
 }
+
+Symbol* Find_type(SymbolTablesList* symbolTableList, char* Key)
+{
+	Symbol* symbolToReturn;
+
+	SymbolTableNode* currentNode = symbolTableList->Head;
+	while (currentNode != null)
+	{
+		symbolToReturn = lookup(currentNode->symbolTable, Key);
+		if (symbolToReturn != null)
+		{
+			if(symbolToReturn->Role == user_defined_type)
+				return symbolToReturn;
+		}
+		currentNode = currentNode->Next;
+	}
+
+	return null;
+}

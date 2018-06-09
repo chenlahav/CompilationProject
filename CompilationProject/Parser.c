@@ -173,7 +173,15 @@ void parse_definition()
 			if((currentSymbol->Type == "integer") || (currentSymbol->Type == "real") 
 				|| ((Find(symbolTablesList, currentSymbol->Type) != NULL)))
 			{
-				insertToSymbolTable(symbolTablesList->Head->symbolTable, currentSymbol);
+				Symbol* is_exist_symbol = lookup(symbolTablesList->Head->symbolTable, currentSymbol->Name);
+				if (is_exist_symbol == NULL)
+				{
+					insertToSymbolTable(symbolTablesList->Head->symbolTable, currentSymbol);
+				}
+				else
+				{
+					fprintf(yyout_semantic, "(Line %d) duplicated declaration of %s\n", currentToken->lineNumber, currentSymbol->Name);
+				}
 			}
 			else
 			{
@@ -189,7 +197,15 @@ void parse_definition()
 			if ((currentSymbol->SubType == "integer") || (currentSymbol->SubType == "real")
 				|| ((Find(symbolTablesList, currentSymbol->SubType) != NULL)))
 			{
-				insertToSymbolTable(symbolTablesList->Head->symbolTable, currentSymbol);
+				Symbol* is_exist_symbol = lookup(symbolTablesList->Head->symbolTable, currentSymbol->Name);
+				if (is_exist_symbol == NULL)
+				{
+					insertToSymbolTable(symbolTablesList->Head->symbolTable, currentSymbol);
+				}
+				else
+				{
+					fprintf(yyout_semantic, "(Line %d) duplicated declaration of %s\n", currentToken->lineNumber, currentSymbol->Name);
+				}
 			}
 			else
 			{
@@ -608,7 +624,7 @@ void parse_command()
 		{
 			fprintf(yyout_syntactic, "COMMAND -> when (EXPRESSION rel_op EXPRESSION) do COMMANDS; default COMMANDS; end_when\n");
 			match(TOKEN_OPEN_PARENTHESES);
-			parse_expression();
+			Symbol* symbol_expression_left = parse_expression();
 			next_t = next_token();
 			switch (next_t->kind)
 			{
@@ -644,7 +660,11 @@ void parse_command()
 				}
 			}
 
-			parse_expression();
+			Symbol* symbol_expression_right = parse_expression();
+			if (symbol_expression_left->Type != symbol_expression_right->Type)
+			{
+				fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", next_t->lineNumber);
+			}
 			match(TOKEN_CLOSE_PARENTHESES);
 			match(TOKEN_DO);
 			parse_commands();
@@ -713,6 +733,16 @@ void parse_command()
 			fprintf(yyout_syntactic, "COMMAND -> free(id)\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			match(TOKEN_ID);
+
+			back_token();
+			Token* token_id = next_token();
+			Symbol* symbol_id = Find(symbolTablesList, token_id->lexeme);
+			if (symbol_id == NULL)
+			{
+				fprintf(yyout_semantic,
+					"(line %d) variable '%s' is not declared\n",
+					token_id->lineNumber, token_id->lexeme);
+			}
 			match(TOKEN_CLOSE_PARENTHESES);
 			break;
 		}
@@ -764,7 +794,8 @@ Symbol* parse_command_tag()
 			Symbol* symbolExpression = parse_expression();
 
 			if ((symbolExpression->Type != "undefined")&&(symbol_receiver_tag->Type != "undefined")
-				&&(symbolExpression->Type != symbol_receiver_tag->Type))
+				&&((symbolExpression->Type != symbol_receiver_tag->Type)||
+				(symbolExpression->Category != symbol_receiver_tag->Category)))
 			{
 				fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", t->lineNumber);
 			}
@@ -919,7 +950,7 @@ Symbol* parse_receiver_tag()
 	}
 	Symbol* typeSymbol = get_type_of_symbol(idSymbol);
 	symbolToReturn->Role = idSymbol->Role;
-	symbolToReturn->Category = typeSymbol->Category;
+	//symbolToReturn->Category = typeSymbol->Category;
 	symbolToReturn->Type = typeSymbol->Type;
 
 	switch (t->kind)
@@ -942,7 +973,7 @@ Symbol* parse_receiver_tag()
 			{
 				fprintf(yyout_semantic, "(line %d) array index is not integer\n", t->lineNumber);
 			}
-			symbolToReturn->Category = typeSymbol->Category;
+			//symbolToReturn->Category = typeSymbol->Category;
 			symbolToReturn->Type = typeSymbol->Type;
 			match(TOKEN_CLOSE_BRACKETS);
 			break;
@@ -961,10 +992,10 @@ Symbol* parse_receiver_tag()
 			{
 				fprintf(yyout_syntactic, "RECEIVER' -> ^\n");
 				Token* check_next_token = next_token();
-				if (check_next_token->kind == TOKEN_SEMICOLON)
-				{
+				/*if (check_next_token->kind == TOKEN_SEMICOLON)
+				{*/
 					symbolToReturn->Category = null;
-				}
+				//}
 				back_token();
 			}
 			break;
@@ -976,7 +1007,6 @@ Symbol* parse_receiver_tag()
 			{
 				fprintf(yyout_semantic, "(line %d) assignment to array is forbidden\n", t->lineNumber);
 			}
-
 			symbolToReturn->Category = typeSymbol->Category;
 			symbolToReturn->Type = typeSymbol->Type;
 			back_token();
@@ -1017,6 +1047,22 @@ Symbol* parse_expression()
 		case TOKEN_ID:
 		{
 			fprintf(yyout_syntactic, "EXPRESSION -> id EXPRESSION'\n");
+			back_token();
+			Token* idToken = next_token();
+			Symbol* idSymbol = Find(symbolTablesList, idToken->lexeme);
+			if (idSymbol == NULL)
+			{
+				fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", idToken->lineNumber, idToken->lexeme);
+				symbol->Category = null;
+				symbol->Name = "undefined";
+				symbol->Type = "undefined";
+				symbol->SubType = "undefined";
+			}
+			else if (idSymbol->Role == user_defined_type)
+			{
+				fprintf(yyout_semantic, "(line %d) %s is a type, not a variable\n", idToken->lineNumber, idToken->lexeme);
+			}
+			
 			Symbol* symbol_expression_tag = parse_expression_tag();
 			symbol->Type = symbol_expression_tag->Type;
 			symbol->Category = symbol_expression_tag->Category;
@@ -1049,7 +1095,6 @@ Symbol* parse_expression()
 				symbol->Name = "undefined";
 				symbol->Type = "undefined";
 				symbol->SubType = "undefined";
-				return symbol;
 			}
 			else 
 			{
@@ -1071,6 +1116,7 @@ Symbol* parse_expression()
 			{
 				fprintf(yyout_semantic, "(line %d) '%s' is not a type name\n", token_id->lineNumber, token_id->lexeme);
 			}
+			symbol->Type = "integer";
 			match(TOKEN_CLOSE_PARENTHESES);
 			break;
 		}
@@ -1115,7 +1161,6 @@ Symbol* parse_expression_tag()
 		symbolToReturn->Name = "undefined";
 		symbolToReturn->Type = "undefined";
 		symbolToReturn->SubType = "undefined";
-		return symbolToReturn;
 	}
 
 	Symbol* typeSymbol = get_type_of_symbol(idSymbol);
@@ -1130,8 +1175,31 @@ Symbol* parse_expression_tag()
 		case TOKEN_POWER:
 		{
 			fprintf(yyout_syntactic, "EXPRESSION' -> ar_op EXPRESSION\n");
-			Symbol* symbol_expression = parse_expression();
+			back_token();
+			back_token();
+			Token* left_token = next_token();
+			next_token();
+			Symbol* left_symbol = Find(symbolTablesList, left_token->lexeme);
+			left_symbol = get_type_of_symbol(left_symbol);
+
+			Symbol* symbol_expression = parse_expression(); //The right token
+
+			if (left_symbol->Category == pointer)
+			{
+				fprintf(yyout_semantic,
+					"(line %d) can't apply arithmetic operation to variable of a pointer type\n",
+					left_token->lineNumber, left_token->lexeme);
+			}
+			else if(typeSymbol->Category == array)
+			{
+				fprintf(yyout_semantic,
+					"(line %d) can't apply arithmetic operation to variable of an array type\n",
+					left_token->lineNumber, left_token->lexeme);
+			}
+			
 			symbolToReturn->Type = symbol_expression->Type;
+			symbolToReturn->Category = symbol_expression->Category;
+			symbolToReturn->Role = symbol_expression->Role;
 			break;
 		}
 		case TOKEN_OPEN_BRACKETS:
@@ -1222,7 +1290,8 @@ Symbol* get_type_of_symbol(Symbol* idSymbol)
 		}
 		else
 		{
-			Symbol* resultSearch = Find(symbolTablesList, idSymbol->Type);
+			Symbol* resultSearch = Find_type(symbolTablesList, idSymbol->Type);
+
 			if (resultSearch != NULL)
 			{
 				typeSymbol->Category = resultSearch->Category;
