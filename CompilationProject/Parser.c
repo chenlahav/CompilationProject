@@ -579,16 +579,27 @@ void parse_command()
 			{
 				fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
 			}
-			
+			else if (idSymbol->Role == user_defined_type)
+			{
+				fprintf(yyout_semantic, "(line %d) %s is a type, not a variable\n", token_id->lineNumber, token_id->lexeme);
+			}
+
 			Symbol* typeSymbol = get_type_of_symbol(idSymbol);
+
+			Token* token = next_token();
+			back_token();
+			if ((typeSymbol->Category == array) && (token->kind != TOKEN_OPEN_BRACKETS))
+			{
+				fprintf(yyout_semantic, "(line %d) assignment to array is forbidden\n", token->lineNumber);
+			}
 
 			Symbol* symbol_command_tag = parse_command_tag();
 
 			if (symbol_command_tag->Type != "undefined")
 			{
-				if (!(typeSymbol->Category == pointer) && (typeSymbol->Type == symbol_command_tag->Type))
+				if (!((typeSymbol->Category == pointer) && (typeSymbol->Type == symbol_command_tag->Type)))
 				{
-					fprintf(yyout_semantic, "(line %d) %s is not a pointer of %s", token_id->lineNumber, token_id->lexeme, symbol_command_tag->Type);
+					fprintf(yyout_semantic, "(line %d) %s is not a pointer of %s\n", token_id->lineNumber, token_id->lexeme, symbol_command_tag->Type);
 				}
 			}
 			break;
@@ -740,7 +751,7 @@ Symbol* parse_command_tag()
 	Token* t = next_token();
 	Symbol* symbolToReturn = (Symbol*)malloc(sizeof(Symbol));
 	symbolToReturn->Category = null;
-	//symbolToReturn->Type = "undefined";
+	symbolToReturn->Type = "undefined";
 	switch (t->kind)
 	{
 		case TOKEN_OPEN_BRACKETS:
@@ -775,22 +786,30 @@ Symbol* parse_command_tag()
 					back_token();
 					Token* id_token = next_token();
 					Symbol* idSymbol = Find(symbolTablesList, id_token->lexeme);
-					if ((idSymbol == NULL) && (id_token->lexeme != "integer" || id_token->lexeme != "real"))
+					if ((idSymbol == NULL) && (strcmp(id_token->lexeme, "integer") != 0 
+						&& strcmp(id_token->lexeme, "real") != 0))
 					{
-						fprintf(yyout_semantic, "(Line %d) Type %s is not defined\n", currentToken->lineNumber, currentToken->lexeme);
+						fprintf(yyout_semantic, "(Line %d) Type %s is not defined\n", id_token->lineNumber, id_token->lexeme);
 					}
-					else if (id_token->lexeme == "integer")
+					else if (strcmp(id_token->lexeme, "integer") == 0)
 					{
 						symbolToReturn->Type = "integer";
 					}
-					else if (id_token->lexeme == "real")
+					else if (strcmp(id_token->lexeme, "real") == 0)
 					{
 						symbolToReturn->Type = "real";
 					}
 					else
 					{
-						Symbol* typeSymbol = get_type_of_symbol(idSymbol);
-						symbolToReturn->Type = typeSymbol->Type;
+						if (idSymbol->Role == variable)
+						{
+							fprintf(yyout_semantic, "(Line %d) %s is not a type name\n", id_token->lineNumber, id_token->lexeme);
+						}
+						else 
+						{
+							Symbol* typeSymbol = get_type_of_symbol(idSymbol);
+							symbolToReturn->Type = typeSymbol->Type;
+						}
 					} 
 					match(TOKEN_CLOSE_PARENTHESES);
 					match(TOKEN_CLOSE_PARENTHESES);
@@ -808,17 +827,19 @@ Symbol* parse_command_tag()
 					Symbol* symbol_receiver_tag = parse_receiver_tag();
 					match(TOKEN_ASSIGNMENT);
 					Symbol* symbolExpression = parse_expression();
-
-					if ((symbolExpression->Type != "undefined") && (symbol_receiver_tag->Type != "undefined")
-						&& (symbolExpression->Type != symbol_receiver_tag->Type))
+					if (symbol_receiver_tag->Role != user_defined_type)
 					{
-						fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", t->lineNumber);
-					}
-					else if ((symbolExpression->Category == pointer) || (symbol_receiver_tag->Category == pointer))
-					{
-						if (!((symbolExpression->Category == pointer) && (symbol_receiver_tag->Category == pointer)))
+						if ((symbolExpression->Type != "undefined") && (symbol_receiver_tag->Type != "undefined")
+							&& (symbolExpression->Type != symbol_receiver_tag->Type))
 						{
 							fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", t->lineNumber);
+						}
+						else if ((symbolExpression->Category == pointer) || (symbol_receiver_tag->Category == pointer))
+						{
+							if (!((symbolExpression->Category == pointer) && (symbol_receiver_tag->Category == pointer)))
+							{
+								fprintf(yyout_semantic, "(line %d) mismatch between types of the left and the right sides of the assignment\n", t->lineNumber);
+							}
 						}
 					}
 
@@ -889,15 +910,17 @@ Symbol* parse_receiver_tag()
 	Symbol* symbolToReturn = (Symbol*)malloc(sizeof(Symbol));
 	if (idSymbol == NULL)
 	{
-		fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
+		//fprintf(yyout_semantic, "(line %d) variable '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
 		symbolToReturn->Category = null;
 		symbolToReturn->Name = "undefined";
 		symbolToReturn->Type = "undefined";
 		symbolToReturn->SubType = "undefined";
 		return symbolToReturn;
 	}
-
 	Symbol* typeSymbol = get_type_of_symbol(idSymbol);
+	symbolToReturn->Role = idSymbol->Role;
+	symbolToReturn->Category = typeSymbol->Category;
+	symbolToReturn->Type = typeSymbol->Type;
 
 	switch (t->kind)
 	{
@@ -910,8 +933,8 @@ Symbol* parse_receiver_tag()
 				symbolToReturn->Name = "undefined";
 				symbolToReturn->Type = "undefined";
 				symbolToReturn->SubType = "undefined";
-				return symbolToReturn;
 			}
+
 			fprintf(yyout_syntactic, "RECEIVER' -> [EXPRESSION]\n");
 			Symbol* symbolExpression = parse_expression();
 			if ((symbolExpression->Type != "undefined") && (typeSymbol->Type != "undefined")
@@ -933,14 +956,27 @@ Symbol* parse_receiver_tag()
 				symbolToReturn->Name = "undefined";
 				symbolToReturn->Type = "undefined";
 				symbolToReturn->SubType = "undefined";
-				return symbolToReturn;
 			}
-			fprintf(yyout_syntactic, "RECEIVER' -> ^\n");
+			else
+			{
+				fprintf(yyout_syntactic, "RECEIVER' -> ^\n");
+				Token* check_next_token = next_token();
+				if (check_next_token->kind == TOKEN_SEMICOLON)
+				{
+					symbolToReturn->Category = null;
+				}
+				back_token();
+			}
 			break;
 		}
 		case TOKEN_ASSIGNMENT:
 		{
 			fprintf(yyout_syntactic, "RECEIVER' -> e\n");
+			if (idSymbol->Category == array)
+			{
+				fprintf(yyout_semantic, "(line %d) assignment to array is forbidden\n", t->lineNumber);
+			}
+
 			symbolToReturn->Category = typeSymbol->Category;
 			symbolToReturn->Type = typeSymbol->Type;
 			back_token();
@@ -983,6 +1019,8 @@ Symbol* parse_expression()
 			fprintf(yyout_syntactic, "EXPRESSION -> id EXPRESSION'\n");
 			Symbol* symbol_expression_tag = parse_expression_tag();
 			symbol->Type = symbol_expression_tag->Type;
+			symbol->Category = symbol_expression_tag->Category;
+			symbol->Role = symbol_expression_tag->Role;
 			break;
 		}
 		case TOKEN_INT_NUM:
@@ -1026,6 +1064,13 @@ Symbol* parse_expression()
 			fprintf(yyout_syntactic, "EXPRESSION -> size_of(type_name)\n");
 			match(TOKEN_OPEN_PARENTHESES);
 			match(TOKEN_ID);
+			back_token();
+			Token* token_id = next_token();
+			Symbol* symbol_id = Find(symbolTablesList, token_id->lexeme);
+			if (symbol_id->Role == variable)
+			{
+				fprintf(yyout_semantic, "(line %d) '%s' is not a type name\n", token_id->lineNumber, token_id->lexeme);
+			}
 			match(TOKEN_CLOSE_PARENTHESES);
 			break;
 		}
@@ -1095,6 +1140,8 @@ Symbol* parse_expression_tag()
 			fprintf(yyout_syntactic, "EXPRESSION' -> RECEIVER'\n");
 			back_token();
 			Symbol* symbol_receiver_tag = parse_receiver_tag();
+			symbolToReturn->Category = symbol_receiver_tag->Category;
+			symbolToReturn->Role = symbol_receiver_tag->Role;
 			symbolToReturn->Type = symbol_receiver_tag->Type;
 			break;
 		}
@@ -1111,7 +1158,7 @@ Symbol* parse_expression_tag()
 			back_token();
 			
 			symbolToReturn->Type = typeSymbol->Type;
-
+			symbolToReturn->Category = typeSymbol->Category;
 			break;
 		}
 		default:

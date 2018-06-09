@@ -3,15 +3,15 @@ c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(17
 c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(176): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
 c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(192): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
 c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(192): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(839): warning C4033: 'parse_command_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(863): warning C4033: 'parse_command_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(959): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(961): warning C4033: 'parse_receiver_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1047): warning C4033: 'parse_expression' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1130): warning C4033: 'parse_expression_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(873): warning C4715: 'parse_command_tag': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(971): warning C4715: 'parse_receiver_tag': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1141): warning C4715: 'parse_expression_tag': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1058): warning C4715: 'parse_expression': not all control paths return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(860): warning C4033: 'parse_command_tag' must return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(884): warning C4033: 'parse_command_tag' must return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(995): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(997): warning C4033: 'parse_receiver_tag' must return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1092): warning C4033: 'parse_expression' must return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1177): warning C4033: 'parse_expression_tag' must return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(894): warning C4715: 'parse_command_tag': not all control paths return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1007): warning C4715: 'parse_receiver_tag': not all control paths return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1103): warning C4715: 'parse_expression': not all control paths return a value
+c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1188): warning C4715: 'parse_expression_tag': not all control paths return a value
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
   CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)
