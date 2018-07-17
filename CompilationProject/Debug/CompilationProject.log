@@ -1,25 +1,24 @@
 ﻿  Parser.c
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(176): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(176): warning C4024: 'lookup': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(179): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(179): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(200): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(200): warning C4024: 'lookup': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(203): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(203): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(891): warning C4033: 'parse_command_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(915): warning C4033: 'parse_command_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1025): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1027): warning C4033: 'parse_receiver_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1138): warning C4033: 'parse_expression' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1245): warning C4033: 'parse_expression_tag' must return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1191): warning C4474: 'fprintf' : too many arguments passed for format string
-  c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1191): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1197): warning C4474: 'fprintf' : too many arguments passed for format string
-  c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1197): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1037): warning C4715: 'parse_receiver_tag': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1149): warning C4715: 'parse_expression': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(925): warning C4715: 'parse_command_tag': not all control paths return a value
-c:\users\chen\documents\github\compilationproject\compilationproject\parser.c(1256): warning C4715: 'parse_expression_tag': not all control paths return a value
-  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.exe
-  CompilationProject.vcxproj -> C:\Users\CHEN\Documents\GitHub\CompilationProject\Debug\CompilationProject.pdb (Full PDB)
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(176): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(176): warning C4024: 'lookup': different types for formal and actual parameter 1
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(179): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(179): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(200): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(200): warning C4024: 'lookup': different types for formal and actual parameter 1
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(203): warning C4047: 'function': 'LinkList **' differs in levels of indirection from 'SymbolTable (*)'
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(203): warning C4024: 'insertToSymbolTable': different types for formal and actual parameter 1
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(891): warning C4033: 'parse_command_tag' must return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(915): warning C4033: 'parse_command_tag' must return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1025): warning C4047: '==': 'Token *' differs in levels of indirection from 'int'
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1027): warning C4033: 'parse_receiver_tag' must return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1145): warning C4033: 'parse_expression' must return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1252): warning C4033: 'parse_expression_tag' must return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1198): warning C4474: 'fprintf' : too many arguments passed for format string
+  c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1198): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1204): warning C4474: 'fprintf' : too many arguments passed for format string
+  c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1204): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1037): warning C4715: 'parse_receiver_tag': not all control paths return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(925): warning C4715: 'parse_command_tag': not all control paths return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1156): warning C4715: 'parse_expression': not all control paths return a value
+c:\users\user\source\repos\compilationproject\compilationproject\parser.c(1263): warning C4715: 'parse_expression_tag': not all control paths return a value
+  CompilationProject.vcxproj -> C:\Users\USER\source\repos\CompilationProject\Debug\CompilationProject.exe

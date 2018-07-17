@@ -1112,13 +1112,20 @@ Symbol* parse_expression()
 			back_token();
 			Token* token_id = next_token();
 			Symbol* symbol_id = Find(symbolTablesList, token_id->lexeme);
-			if (symbol_id->Role == variable)
+			if (symbol_id)
 			{
-				fprintf(yyout_semantic, "(line %d) '%s' is not a type name\n", token_id->lineNumber, token_id->lexeme);
+				if (symbol_id->Role == variable)
+				{
+					fprintf(yyout_semantic, "(line %d) '%s' is not a type name\n", token_id->lineNumber, token_id->lexeme);
+				}
+				symbol->Type = "integer";
+				match(TOKEN_CLOSE_PARENTHESES);
+				break;
 			}
-			symbol->Type = "integer";
-			match(TOKEN_CLOSE_PARENTHESES);
-			break;
+			else
+			{
+				fprintf(yyout_semantic, "(line %d) '%s' is not declared\n", token_id->lineNumber, token_id->lexeme);
+			}
 		}
 		default:
 		{
